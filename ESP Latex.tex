@@ -161,7 +161,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 	\begin{equation*}
 		\begin{aligned}
 			p_{ij}(2) &= P(X_2 = s_j|X_0 = s_i) \\ 
-					&= \sum_{k=1}^{3} p_{ik}p_{kj}\\
+					&= \sum_{k=1}^{m} p_{ik}p_{kj}\\
 					&= (P^2)_{ij}
 		\end{aligned}
 	\end{equation*}	    
@@ -182,16 +182,17 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 
 	Similarly, we can show by induction that the n-step transition probability $p_{ij}(n)$ corresponds to the $(i,j)$ entry 
 	of $\mathbf{P}^n$. 
-	
+	\begin{proof}
 	\begin{equation*}
 		\begin{aligned}
 			p_{ij}(n) &= P(X_n = s_j|X_0 = s_i) \\
-					&= \sum_{k=1}^{|S|} P(X_n = s_j|X_{n-1} = s_k)P(X_{n-1} = s_k | X_0 = s_i) \\
-					&= \sum_{k=1}^{|S|} p_{kj}p_{ik}(n-1) \\
-					&= \sum_{k=1}^{|S|} p_{kj}(\mathbf{P}^{n-1})_{ik} \\
-					&= (\mathbf{P}^n)_{ij}
+					&= \sum_{k=1}^{m} P(X_n = s_j|X_{n-1} = s_k)P(X_{n-1} = s_k | X_0 = s_i) \\
+					&= \sum_{k=1}^{m} p_{kj}p_{ik}(n-1) \\
+					&= \sum_{k=1}^{m|} p_{kj}(\mathbf{P}^{n-1})_{ik} \\
+					&= (\mathbf{P}^n)_{ij} 
 		\end{aligned}
 	\end{equation*}	
+	\end{proof}
 	
 \subsection*{State Probability Distribution}
 
@@ -264,7 +265,7 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	\end{aligned}
 	\end{equation*}
 	
-*{State Classification}
+\subsection*{State Classification}
 	
 	In any Markov chain, each individual state can either be classified as a \emph{recurrent} or \emph{transient} state. A state $s_i$ is called \emph{recurrent} if the process starting at $s_i$ will eventually return to $s_i$ after some \emph{n} steps. Conversely, a state $s_i$ is called \emph{transient} if the process starting again at $s_i$ might never return to $s_i$ in the future. Consider the following figure.
 
@@ -339,7 +340,7 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	
 Therefore, we can use the transition matrix \textbf{P} to determine the mean number of visits to a transient state.
 
-*{Accessibility and Communication}
+\subsection*{Accessibility and Communication}
 
 	Now that we have defined the two state classes, let us examine their relationship. We say that a state $s_j$ is 
 	\textit{accessible} from $s_i$ if there exists some $n$ for which the n-step transition probability $p_{ij}(n) > 0$.
@@ -659,7 +660,7 @@ Therefore, we are adding the expected visits to all non-absorbing states given t
 \\
 \\
 	\begin{tcolorbox}
-	*{Example 2: Gambler's Ruin}
+	\subsection*{Example 2: Gambler's Ruin}
     	A gambler has an initial wealth of \textbf{k} dollars and bets 1\$ every round with probability \textbf{p} of winning each 				round.
     	The gambler keeps playing until his wealth is either emptied or reaches a value \textbf{n} (see Figure 2).   
 	\end{tcolorbox}	    

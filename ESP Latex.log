@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.25)  18 MAY 2023 17:59
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.25)  18 MAY 2023 18:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -685,103 +685,130 @@ l.157 ...tting the first row of the matrix \mathbf
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
-[3] [4] [5] [6] [7]
-Overfull \hbox (20.34277pt too wide) detected at line 370
-[][]
- []
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 386--387
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 389--390
-
- []
-
-[9]
-Underfull \hbox (badness 10000) in paragraph at lines 437--438
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 439--440
-
- []
-
-LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 458.
-(c:/texlive/2021/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 458.
-
-Underfull \hbox (badness 10000) in paragraph at lines 458--459
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 460--461
-
- []
-
-[10]
-Underfull \hbox (badness 10000) in paragraph at lines 491--492
-
- []
-
-[11]
-Underfull \hbox (badness 10000) in paragraph at lines 528--529
-
- []
-
-[12] [13]
-Underfull \hbox (badness 10000) in paragraph at lines 570--576
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 570--576
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 584--588
-
- []
-
-[14]
-
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:619: LaTeX Error: There's no line here to end.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:185: LaTeX Error: Environment proof undefined.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.619   	 \[
+l.185 	\begin{proof}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:195: LaTeX Error: \begin{document} ended by \end{proof}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.195 	\end{proof}
+                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[3] [4] [5] [6] [7]
+Overfull \hbox (20.34277pt too wide) detected at line 371
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 387--388
+
+ []
+
+[8]
+Underfull \hbox (badness 10000) in paragraph at lines 390--391
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 438--439
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 440--441
+
+ []
+
+[9]
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 459.
+ (c:/texlive/2021/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 459.
+
+Underfull \hbox (badness 10000) in paragraph at lines 459--460
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 461--462
+
+ []
+
+[10]
+Underfull \hbox (badness 10000) in paragraph at lines 492--493
+
+ []
+
+[11]
+Underfull \hbox (badness 10000) in paragraph at lines 529--530
+
+ []
+
+[12]
+Underfull \hbox (badness 10000) in paragraph at lines 571--577
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 571--577
+
+ []
+
+[13]
+Underfull \hbox (badness 10000) in paragraph at lines 585--589
+
+ []
+
+[14]
+
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:620: LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.620   	 \[
             
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 627--629
+Underfull \hbox (badness 10000) in paragraph at lines 628--630
 
  []
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:638: Missing $ inserted.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:639: Missing $ inserted.
 <inserted text> 
                 $
-l.638 
+l.639 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:638: Missing } inserted.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:639: Missing } inserted.
 <inserted text> 
                 }
-l.638 
+l.639 
       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -789,10 +816,10 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:638: Missing } inserted.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:639: Missing } inserted.
 <inserted text> 
                 }
-l.638 
+l.639 
       
 I've inserted something that you may have forgotten.
 (See the <inserted text> above.)
@@ -800,34 +827,34 @@ With luck, this will get me unwedged. But if you
 really didn't forget anything, try typing `2' now; then
 my insertion and my current dilemma will both disappear.
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:638: Missing \cr inserted.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:639: Missing \cr inserted.
 <inserted text> 
                 \cr 
-l.638 
+l.639 
       
 I'm guessing that you meant to end an alignment here.
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:638: Missing { inserted.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:639: Missing { inserted.
 <inserted text> 
                 {
-l.638 
+l.639 
       
 I've put in what seems to be necessary to fix
 the current column of the current alignment.
 Try to go on, since this might almost work.
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:638: Missing $ inserted.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:639: Missing $ inserted.
 <inserted text> 
                 $
-l.638 
+l.639 
       
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:639: Misplaced \crcr.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:640: Misplaced \crcr.
 \endaligned ->\crcr 
                     \egroup \restorecolumn@ \egroup 
-l.639 	\end{aligned}
+l.640 	\end{aligned}
                     
 I can't figure out why you would want to use a tab mark
 or \cr or \span just now. If something like a right brace
@@ -835,10 +862,10 @@ up above has ended a previous alignment prematurely,
 you're probably due for more error messages, and you
 might try typing `S' now just to see what is salvageable.
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:639: Extra }, or forgotten \endgroup.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:640: Extra }, or forgotten \endgroup.
 \endaligned ...cr \egroup \restorecolumn@ \egroup 
                                                   
-l.639 	\end{aligned}
+l.640 	\end{aligned}
                     
 I've deleted a group-closing symbol because it seems to be
 spurious, as in `$x}$'. But perhaps the } is legitimate and
@@ -847,128 +874,128 @@ the way to recover is to insert both the forgotten and the
 deleted material, e.g., by typing `I$}'.
 
 [15]
-Underfull \hbox (badness 10000) in paragraph at lines 658--665
+Underfull \hbox (badness 10000) in paragraph at lines 659--666
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 658--665
+Underfull \hbox (badness 10000) in paragraph at lines 659--666
 
  []
 
 
-Overfull \hbox (41.54337pt too wide) in paragraph at lines 682--683
+Overfull \hbox (41.54337pt too wide) in paragraph at lines 683--684
 [][] 
  []
 
 
-Overfull \hbox (19.52495pt too wide) in paragraph at lines 684--686
+Overfull \hbox (19.52495pt too wide) in paragraph at lines 685--687
 []\OT1/cmr/m/n/12 The states $\OML/cmm/m/it/12 s[]$ \OT1/cmr/m/n/12 and $\OML/cmm/m/it/12 s[]$ \OT1/cmr/m/n/12 are con-sid-ered \OT1/cmr/m/it/12 ab-sorb-ing \OT1/cmr/m/n/12 whereas the states $\OML/cmm/m/it/12 s[]; s[]; :::; s[]$
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 684--686
+Underfull \hbox (badness 10000) in paragraph at lines 685--687
 
  []
 
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:701: LaTeX Error: There's no line here to end.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:702: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.701 F
+l.702 F
        or the sake of simplicity, we will consider the following transition ...
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 701--703
+Underfull \hbox (badness 10000) in paragraph at lines 702--704
 
  []
 
 [16]
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:714: LaTeX Error: There's no line here to end.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:715: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.714 T
+l.715 T
        he canonical form of the transition matrix
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 714--716
+Underfull \hbox (badness 10000) in paragraph at lines 715--717
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 724--728
+Underfull \hbox (badness 10000) in paragraph at lines 725--729
 
  []
 
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:744: LaTeX Error: There's no line here to end.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:745: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.744 T
+l.745 T
        he fundamental matrix is given as
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 744--746
+Underfull \hbox (badness 10000) in paragraph at lines 745--747
 
  []
 
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:755: LaTeX Error: There's no line here to end.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:756: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.755 W
+l.756 W
        e now find the \textit{t} column vector whose entries $t_i$ contain t...
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 755--757
+Underfull \hbox (badness 10000) in paragraph at lines 756--758
 
  []
 
 
-c:/Users/Davay/Desktop/ESP/ESP Latex.tex:767: LaTeX Error: There's no line here to end.
+c:/Users/Davay/Desktop/ESP/ESP Latex.tex:768: LaTeX Error: There's no line here to end.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.767 N
+l.768 N
        ow that we have the theoretical results, we can use the Streamlit sim...
 Your command was ignored.
 Type  I <command> <return>  to replace it with another command,
 or  <return>  to continue without it.
 
 [17] [18]
-Overfull \hbox (3.7473pt too wide) in paragraph at lines 789--790
+Overfull \hbox (3.7473pt too wide) in paragraph at lines 790--791
 \OT1/cmr/m/n/12 Notes, https://mast.queensu.ca/ stat455/lecturenotes/lecturenotes.shtml. 
  []
 
 
-Underfull \hbox (badness 3407) in paragraph at lines 795--796
+Underfull \hbox (badness 3407) in paragraph at lines 796--797
 \OT1/cmr/m/n/12 Course-Ware, https://ocw.mit.edu/courses/6-041-probabilistic-systems-
  []
 
@@ -981,15 +1008,15 @@ See the caption package documentation for explanation.
 pdfTeX warning (ext4): destination with the same identifier (name{cite.texbook}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.799 \end{document}
+l.800 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier (name{cite.texbook}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.799 \end{document}
+l.800 \end{document}
                     pdfTeX warning (ext4): destination with the same identifier (name{cite.texbook}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.799 \end{document}
+l.800 \end{document}
                     ] (./ESP Latex.aux)
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
@@ -1004,18 +1031,18 @@ Package rerunfilecheck Info: Checksums for `"ESP Latex".out':
 (rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 37791 strings out of 478287
- 896356 string characters out of 5850749
+ 37795 strings out of 478287
+ 896397 string characters out of 5850749
  1320337 words of memory out of 5000000
- 55370 multiletter control sequences out of 15000+600000
+ 55371 multiletter control sequences out of 15000+600000
  480028 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  100i,14n,104p,1223b,1215s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on "ESP Latex.pdf" (19 pages, 196700 bytes).
+Output written on "ESP Latex.pdf" (19 pages, 197664 bytes).
 PDF statistics:
- 179 PDF objects out of 1000 (max. 8388607)
- 130 compressed objects within 2 object streams
- 34 named destinations out of 1000 (max. 500000)
+ 185 PDF objects out of 1000 (max. 8388607)
+ 136 compressed objects within 2 object streams
+ 37 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
