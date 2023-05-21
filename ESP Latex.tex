@@ -167,7 +167,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 	\end{equation*}	    
 
 	It follows that the second power of the transition matrix \textbf{P} summarizes every 2-step transition probability 
-	from $s_i$ to $s_j$.
+	from $s_i$ to $s_j$ (i.e. $p_{ij}(2)$).
 
 	\begin{equation*}
 		\begin{aligned}
@@ -188,7 +188,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 			p_{ij}(n) &= P(X_n = s_j|X_0 = s_i) \\
 					&= \sum_{k=1}^{m} P(X_n = s_j|X_{n-1} = s_k)P(X_{n-1} = s_k | X_0 = s_i) \\
 					&= \sum_{k=1}^{m} p_{kj}p_{ik}(n-1) \\
-					&= \sum_{k=1}^{m|} p_{kj}(\mathbf{P}^{n-1})_{ik} \\
+					&= \sum_{k=1}^{m} p_{kj}(\mathbf{P}^{n-1})_{ik} \\
 					&= (\mathbf{P}^n)_{ij} 
 		\end{aligned}
 	\end{equation*}	
@@ -196,7 +196,9 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 	
 \subsection*{State Probability Distribution}
 
-Suppose a Markov chain $\{X_n:n=0,1,2,...\}$ has a finite state space $S = \{s_1, s_2,..., s_k\}$. Then each random variable $X_n$ has a state probability distribution that can be represented using a $1 \times k$ vector. For instance, consider the probability vector $\vec{\pi}$ which contains the starting probability distribution of $X_0$.
+Suppose a Markov chain $\{X_n \in S|n \in T\}$ has a finite state space $S = \{s_1, s_2,..., s_k\}$. Then each random 
+variable $X_n$ has a state probability distribution that can be represented using a $k$-length row vector. For instance, 
+consider the probability vector $\vec{\pi}$ which contains the starting probability distribution of $X_0$.
 	
 	\begin{equation*}
 	\begin{aligned}
@@ -362,7 +364,7 @@ Therefore, we can use the transition matrix \textbf{P} to determine the mean num
 		\begin{aligned}
 			p_{ij}(n+m) &= P(X_{n+m} = s_j | X_0 = s_i) \\
 						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j \cap X_n = s_k | X_0 = s_i) \\
-						&= \sum_{k=1}^{|S|} \frac{P(X_{n+m} = s_j \cap X_n = s_k \cap X_0 = s_i)}{P(X_0 = s_i)}\ \;\;\;\; \textit{Baye's Theorem} \\
+						&= \sum_{k=1}^{|S|} \frac{P(X_{n+m} = s_j \cap X_n = s_k \cap X_0 = s_i)}{P(X_0 = s_i)}\ \;\;\;\; \textit{Bayes' Theorem} \\
 						&= \sum_{k=1}^{|S|} \frac{P(X_{n+m} = s_j | X_n = s_k \cap X_0 = s_i)P(X_n = s_k \cap X_0 = s_i)}{P(X_0 = s_i)}\ \\
 						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j | X_n = s_k \cap X_0 = s_i)P(X_n = s_k | X_0 = s_i) \\
 						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j | X_n = s_k)P(X_n = s_k | X_0 = s_i) \;\;\;\; \textit{Markov Property} \\ 
