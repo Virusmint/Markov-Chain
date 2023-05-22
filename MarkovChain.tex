@@ -1,24 +1,42 @@
-\documentclass[a4paper, 12pt]{article}
-\usepackage{tikz}
-\usetikzlibrary{shapes,arrows,positioning}
-\usepackage{indentfirst}
-\usepackage{amsmath}
-\usepackage{color}
-\usepackage{xcolor}
-\usepackage{listings}
-\usepackage{caption}
-\DeclareCaptionFont{white}{\color{white}}
-\DeclareCaptionFormat{listing}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}}
-\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
-\usepackage{amssymb}
-\usepackage{amsfonts}
-\usepackage{tcolorbox}
-\usetikzlibrary{trees}
-\usepackage[latin1]{inputenc}
-\usepackage{booktabs}
-\usepackage{hyperref}
-\usepackage{pgfplots}
-\usepgfplotslibrary{fillbetween}
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsmath,amsfonts,amssymb} % Math packages
+\usepackage{mathtools} % For defining floor and ceiling functions
+\usepackage{amsthm}    % Theorems
+\usepackage{bm} 	     % Bold math
+\usepackage{bbm}	     % More bold math?
+\usepackage{array}     % Better tables
+\usepackage{chemfig}   % chemical figures
+\usepackage{physics}   % derivatives and partials
+\usepackage{float}     % Better positioning [H]
+\usepackage{framed}    % Framed boxes
+\usepackage{tcolorbox} % Colored boxes
+\usepackage{geometry}  % Required for adjusting page dimensions and margins
+\usepackage{graphicx}  % Include images
+\usepackage{multirow}  % multicolumn tables
+\usepackage{pgfplots}  % Create plots in latex
+\usepackage{siunitx}   % SI unit system
+\usepackage{listings}  % Code environments
+\usepackage[shortlabels]{enumitem} %lets us change the enumeration to (a), (b), ...
+\usepackage{booktabs}  % Better looking horizontal rules
+\usepackage{makecell}  % Pre-formatting of column heads
+\usepackage{hyperref}  % Clickable links
+\usepackage{tikz}      % Graphs
+\usetikzlibrary{shapes,arrows,positioning} % Graph arrows
+\usetikzlibrary{automata,positioning,fit,shapes.geometric,backgrounds} % Node grouping
+\renewcommand{\arraystretch}{1.6}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% stats commands
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\Var}{\mathbb{V}\mathrm{ar}}
+\newcommand{\Cov}{\mathbb{C}\mathrm{ov}}
+\newcommand{\Risk}{\mathcal{R}}
+
 % common number sets
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\R}{\mathbb{R}}
@@ -26,6 +44,40 @@
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\C}{\mathbb{C}}
 
+% Cs stuff
+\newcommand{\bigO}{\mathcal{O}}
+
+% Indicator function
+\newcommand{\Ind}[1]{\mathbbm{1}_{\{#1\}}}
+
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\angleb{\langle}{\rangle}
+
+\geometry{
+	paper=a4paper, % Paper size, change to letterpaper for US letter size
+	top=2.5cm, % Top margin
+	bottom=2.5cm, % Bottom margin
+	left=2.5cm, % Left margin
+	right=2.5cm, % Right margin
+	headheight=14pt, % Header height
+	footskip=1.5cm, % Space from the bottom margin to the baseline of the footer
+	headsep=1.2cm, % Space from the top margin to the baseline of the header
+}
+
+\lstset{
+	basicstyle=\ttfamily,
+	mathescape,
+	inputencoding=utf8,
+	escapeinside={\%*}{*)},
+	literate={á}{{\'a}}1 {ã}{{\~a}}1 {é}{{\'e}}1 {É}{{\'E}}1 {è}{{\`e}}1 {à}{{\`a}}1,
+	numbers=left,
+	breaklines=true
+}
+
+\let\tss\textsuperscript % superscript macro
+\let\oldtextbf\mathbf
+\renewcommand{\mathbf}[1]{\oldtextbf{\boldmath #1}}
 
 \begin{document}
 
@@ -89,6 +141,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 	every possible route from $s_1$ to $s_3$.
 
 	\begin{figure}[h]
+		\centering
 		\tikzstyle{level 1}=[level distance=3.5cm, sibling distance=2.5cm]
 		\tikzstyle{level 2}=[level distance=3.5cm]
 		\tikzstyle{bag} = [text width=4em, text centered]
@@ -96,7 +149,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 		\begin{tikzpicture}[grow=right, sloped]
 		\node[bag] {$s_1$}
 			child {
-				node[bag] {$s_1$}        
+				node[bag] {$s_3$}        
 					child {
 						node[end, label=right:
 							{$s_3$}] {}
@@ -154,19 +207,20 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 		\end{pmatrix}
 	\end{equation*}
 
-	Notice in (1) we are dotting the first row of the matrix \mathbf{P} with its third column to obtain the probability 
+	Notice in (1) we are dotting the first row of the matrix $\mathbf{P}$ with its third column to obtain the probability 
 	that the process starting at $s_1$ finishes at $s_3$ in 2 steps. We can further generalize this observation for any 2-step 
 	transition probability.
 
 	\begin{equation*}
 		\begin{aligned}
 			p_{ij}(2) &= P(X_2 = s_j|X_0 = s_i) \\ 
+					&= \sum_{k=1}^{m} P(X_2 = s_j|X_0 = s_i)
 					&= \sum_{k=1}^{m} p_{ik}p_{kj}\\
 					&= (P^2)_{ij}
 		\end{aligned}
 	\end{equation*}	    
 
-	It follows that the second power of the transition matrix \textbf{P} summarizes every 2-step transition probability 
+	It follows that the second power of the transition matrix $\mathbf{P}$ summarizes every 2-step transition probability 
 	from $s_i$ to $s_j$ (i.e. $p_{ij}(2)$).
 
 	\begin{equation*}
@@ -180,18 +234,27 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 		\end{aligned}
 	\end{equation*}
 
-	Similarly, we can show by induction that the n-step transition probability $p_{ij}(n)$ corresponds to the $(i,j)$ entry 
-	of $\mathbf{P}^n$. 
-	\begin{proof}
-	\begin{equation*}
+	\begin{theorem}
+		Let $s_i, s_j \in S$ be states of a Markov Chain with transition matrix $\mathbf{P}$. Then
+		\begin{equation*}
 		\begin{aligned}
-			p_{ij}(n) &= P(X_n = s_j|X_0 = s_i) \\
-					&= \sum_{k=1}^{m} P(X_n = s_j|X_{n-1} = s_k)P(X_{n-1} = s_k | X_0 = s_i) \\
-					&= \sum_{k=1}^{m} p_{kj}p_{ik}(n-1) \\
-					&= \sum_{k=1}^{m} p_{kj}(\mathbf{P}^{n-1})_{ik} \\
-					&= (\mathbf{P}^n)_{ij} 
+			p_{ij}(n) = (\mathbf{P}^n)_{ij}
 		\end{aligned}
-	\end{equation*}	
+		\end{equation*}	
+	\end{theorem}
+	\begin{proof}
+		We will proceed by induction on $n$. The theorem certainly holds for $n=1$ by definition of the transition matrix $\mathbf{P}$.
+		Now assume that the result holds for some $n \geq 1$. Then
+
+		\begin{equation*}
+		\begin{aligned}
+			p_{ij}(n+1) &= P(X_{n+1} = s_j|X_0 = s_i) \\
+					&= \sum_{k=1}^{m} P(X_{n+1} = s_j|X_{n} = s_k)P(X_{n} = s_k | X_0 = s_i) \\
+					&= \sum_{k=1}^{m} p_{kj}p_{ik}(n) \\
+					&= \sum_{k=1}^{m} p_{kj}(\mathbf{P}^{n})_{ik} \\
+					&= (\mathbf{P}^{n+1})_{ij} 
+		\end{aligned}
+		\end{equation*}	
 	\end{proof}
 	
 \subsection*{State Probability Distribution}
@@ -267,7 +330,49 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	\end{aligned}
 	\end{equation*}
 	
-\subsection*{State Classification}
+\subsection*{Accessibility and Communication}
+
+	We say that a state $s_j$ is \emph{accessible} from $s_i$ if there exists some $n$ for which the n-step transition probability $p_{ij}(n) > 0$.
+	Alternatively, if $s_j$ is not accessible from $s_i$, then $p_{ij} = 0$ for all integers $n$. Moreover, if $s_i$ and $s_j$ 
+	are accessible to each other, then they are said to \emph{communicate}, which we denote by $s_i \leftrightsquigarrow s_j$.
+	\begin{proposition}
+		Communication is considered to be an equivalence relationship.
+	\end{proposition}
+	\begin{proof}
+		We must prove that the relation is \emph{reflexive}, \emph{symmetric}, and \emph{transitive}. 
+		We will focus our attention on \emph{transitivity} and leave the rest as exercises. \\
+		Let $s_i, s_j, s_k \in S$ where $s_i \leftrightsquigarrow s_j$ and $s_j \leftrightsquigarrow s_k$.
+		Then by definition, we know that there exist some integers $n$ and $m$ such that 
+		$p_{ik}(n) > 0$ and $p_{kj}(m) > 0$. For $s_j$ to be \emph{accessible} from $s_i$, we need to show that 
+		$p_{ij}(l) > 0$ for some integer $l$. Consider the case where $l = n+m$.
+
+	\begin{equation*}
+		\begin{aligned}
+			p_{ij}(n+m) &= P(X_{n+m} = s_j | X_0 = s_i) \\
+						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j \cap X_n = s_k | X_0 = s_i) \\
+						&= \sum_{k=1}^{|S|} \frac{P(X_{n+m} = s_j \cap X_n = s_k \cap X_0 = s_i)}{P(X_0 = s_i)}\ \;\;\;\; \emph{Bayes' Theorem} \\
+						&= \sum_{k=1}^{|S|} \frac{P(X_{n+m} = s_j | X_n = s_k \cap X_0 = s_i)P(X_n = s_k \cap X_0 = s_i)}{P(X_0 = s_i)}\ \\
+						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j | X_n = s_k \cap X_0 = s_i)P(X_n = s_k | X_0 = s_i) \\
+						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j | X_n = s_k)P(X_n = s_k | X_0 = s_i) \;\;\;\; \emph{Markov Property} \\ 
+						&= \sum_{k=1}^{|S|} p_{kj}(m)p_{ik}(n) \\
+		\end{aligned}
+	\end{equation*}	
+	
+	By assumption, there exists at least one intermediate state $s_k$ that communicates both with $s_i$ and $s_j$ (i.e. $p_{ik}(n) > 0$ 
+	and $p_{kj}(m) > 0$), then the following inequality holds true only for the communicating intermediate states $s_k$.
+
+	\begin{equation*}
+	\begin{aligned}
+		 p_{ij}(n+m) \geq p_{ik}(m)p_{kj}(n) > 0
+	\end{aligned}
+	\end{equation*}	
+	Hence $s_j$ is accessible from $s_i$. A similar argument can be made in the other direction to show that $s_i$ is accessible from $s_j$.
+	\end{proof}
+
+	As a side note, we say that the \emph{communication classes} of a Markov Process are the equivalence classes of states under communication.
+	\newpage	
+
+	\subsection*{State Classification}
 	
 	In any Markov chain, each individual state can either be classified as a \emph{recurrent} or \emph{transient} state. A state $s_i$ is called \emph{recurrent} if the process starting at $s_i$ will eventually return to $s_i$ after some \emph{n} steps. Conversely, a state $s_i$ is called \emph{transient} if the process starting again at $s_i$ might never return to $s_i$ in the future. Consider the following figure.
 
@@ -290,7 +395,11 @@ Likewise, we can use a similar approach to find the probability distribution of 
         \end{tikzpicture}
 	\end{center}
 	
-	In this example, the states $s_1, s_2, s_3$ are \emph{transient} because if the process starts at any one of these states and moves from $s_3$ to $s_4$, then it will never return to any of the transient states located in the left node. However, the states $s_4$ and $s_5$ are \emph{recurrent} because the process starting at any one of those states must eventually return to that initial state. More formally, if we define $f_{ii}$ as the probability that a process starting at $s_i$ returns to $s_i$ in some \emph{n} steps
+	In this example, the states $s_1, s_2, s_3$ are \emph{transient} because if the process starts at any one of these states 
+	and moves from $s_3$ to $s_4$, then it will never return to any of the transient states located in the left node. 
+	However, the states $s_4$ and $s_5$ are \emph{recurrent} because the process starting at any one of those states must 
+	eventually return to that initial state. More formally, if we define $f_{ii}$ as the probability that a process starting 
+	at $s_i$ returns to $s_i$ at least once.
 	
 	\begin{equation*}
 		\begin{aligned}
@@ -340,58 +449,19 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	\end{aligned}
 	\end{equation*}	
 	
-Therefore, we can use the transition matrix \textbf{P} to determine the mean number of visits to a transient state.
+Therefore, we can use the transition matrix $\mathbf{P}$ to determine the mean number of visits to a transient state.
 
-\subsection*{Accessibility and Communication}
-
-	Now that we have defined the two state classes, let us examine their relationship. We say that a state $s_j$ is 
-	\textit{accessible} from $s_i$ if there exists some $n$ for which the n-step transition probability $p_{ij}(n) > 0$.
-	Alternatively, if $s_j$ is not accessible from $s_i$, then $p_{ij}$ = 0 for all $n$. Subsequently, if $s_i$ and $s_j$ 
-	are accessible from each other, then they are said to \textit{communicate}, which we denote by $s_i \leftrightarrow s_j$.
-	Communication is considered to be an \textit{equivalence relationship}, meaning that it is \textit{reflexive}, 
-	\textit{symmetric}, and \textit{transitive}.
-
-	\begin{itemize}
-	\item Reflexive: $s_i$ communicates with itself since $s_i$ is accessible to itself for $n = 0$, i.e. $p_{ii}(0) = 1 > 0$
-	\item Symmetric: If $s_i \leftrightarrow s_j$, then $s_j \leftrightarrow s_i$ by definition of communication
-	\item Transitive: If $s_i \leftrightarrow s_k$ and $s_k \leftrightarrow s_j$, then $s_i \leftrightarrow s_j$. We know by 
-	definition of communication that there exists some integers \textit{n} and \textit{m} such that 
-	$p_{ik}(n) > 0$ and $p_{kj}(m) > 0$. Therefore, for $s_j$ to be \textit{accessible} from $s_i$, we need to show that 
-	$p_{ij}(l) > 0$ for some integer $l$. Consider the case where $l = n+m$.
-	\end{itemize}
-	
-	\begin{equation*}
-		\begin{aligned}
-			p_{ij}(n+m) &= P(X_{n+m} = s_j | X_0 = s_i) \\
-						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j \cap X_n = s_k | X_0 = s_i) \\
-						&= \sum_{k=1}^{|S|} \frac{P(X_{n+m} = s_j \cap X_n = s_k \cap X_0 = s_i)}{P(X_0 = s_i)}\ \;\;\;\; \textit{Bayes' Theorem} \\
-						&= \sum_{k=1}^{|S|} \frac{P(X_{n+m} = s_j | X_n = s_k \cap X_0 = s_i)P(X_n = s_k \cap X_0 = s_i)}{P(X_0 = s_i)}\ \\
-						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j | X_n = s_k \cap X_0 = s_i)P(X_n = s_k | X_0 = s_i) \\
-						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j | X_n = s_k)P(X_n = s_k | X_0 = s_i) \;\;\;\; \textit{Markov Property} \\ 
-						&= \sum_{k=1}^{|S|} p_{kj}(m)p_{ik}(n) \\
-		\end{aligned}
-	\end{equation*}	
-	
-	By assumption, there exists at least one intermediate state $s_k$ that communicates both with $s_i$ and $s_j$ (i.e. $p_{ik}(n) > 0$ and $p_{kj}(m) > 0$), then the following inequality holds true only for the communicating intermediate states $s_k$.
-
-	\begin{equation*}
-	\begin{aligned}
-		 p_{ij}(n+m) \geq p_{ik}(m)p_{kj}(n) > 0
-	\end{aligned}
-	\end{equation*}	
-	
-	Hence, $s_j$ is accessible from $s_i$. A similar argument can be made to show that $s_i$ is accessible from $s_j$.
-
-	Furthermore, we say that the \emph{communication classes} of a Markov Process are the equivalence classes of states under this relation
-	
 \subsection*{Convergence to Equilibrium}
 		
-	By combining individual states in a process, we obtain different types of Markov chains; some of them have stabilizing long term behaviors while others do not. Note that by "stabilizing long term behavior", we mean that the process gradually converges towards a unique steady state distribution, regardless of the initial conditions. This equilibrium distribution will then help us predict the long term proportion of time spent in each state. We will first look at examples of processes that do not have a stable long term behavior. \\
+	By combining individual states in a process, we obtain different types of Markov chains; some of them have stabilizing 
+	long term behaviors while others do not. Note that by "stabilizing long term behavior", we mean that the process gradually 
+	converges towards a unique steady state distribution, regardless of the initial conditions. This equilibrium distribution 
+	will then help us predict the long term proportion of time spent in each state. We will first look at examples of processes 
+	that do not have a stable long term behavior.
 	
+\subsubsection*{Periodic Markov Chains}
 
-\underline{Periodic Markov Chains}\\
-
-A state in a Markov chain is said to be periodic if the process can only return to that state at multiples of an integer greater than 1. It should also be noted that periodicity is a \textit{class property}, meaning that if one state is periodic, then every other state in its communication class is also periodic. To illustrate, consider the following periodic Markov chain.
+A state in a Markov chain is said to be periodic if the process can only return to that state at multiples of an integer greater than 1. It should also be noted that periodicity is a \emph{class property}, meaning that if one state is periodic, then every other state in its communication class is also periodic. To illustrate, consider the following periodic Markov chain.
 
 	\begin{center}
 	\begin{tikzpicture}[->, >=stealth', auto, semithick, node distance=3cm]
@@ -407,11 +477,11 @@ A state in a Markov chain is said to be periodic if the process can only return 
     \end{tikzpicture}
 	\end{center}
 	
-	If the process starts at state $s_1$, then we see that it can only return to that state in an even number of steps. The same can be said about $s_3$, whereas $s_2$ strictly has a period of 2 steps.
-	Moreover, consider the transition matrix of this process.	
+	If the process starts at state $s_1$, then we see that it can only return to that state in an even number of steps. The same can be 
+	said about $s_3$, whereas $s_2$ strictly has a period of 2 steps. Moreover, consider the transition matrix of this process.	
 
 	\begin{center}	
-	$\textbf{P} =$
+	$\mathbf{P} =$
            $\begin{pmatrix}
                 0 & 1 & 0 \\
                 0.5 & 0 & 0.5 \\
@@ -419,17 +489,18 @@ A state in a Markov chain is said to be periodic if the process can only return 
             \end{pmatrix}$
 	\end{center}	
 	
-When we take successive powers of the transition matrix, it can be observed that the resulting matrix alternates between $P^{n_{odd}}$ and $P^{n_{even}}$.
+	When we take successive powers of the transition matrix, it can be observed that the resulting matrix alternates between $P^{n_{odd}}$ 
+	and $P^{n_{even}}$.
 
 	\begin{center}	
-	$\textbf{P}^{n_{odd}}=$
+	$\mathbf{P}^{n_{odd}}=$
            $\begin{pmatrix}
                 0 & 1 & 0 \\
                 0.5 & 0 & 0.5 \\
                 0 & 1 & 0
             \end{pmatrix}$
      ;
-     $\textbf{P}^{n_{even}}=$
+     $\mathbf{P}^{n_{even}}=$
            $\begin{pmatrix}
                 0.5 & 0 & 0.5 \\
                 0 & 1 & 0 \\
@@ -437,11 +508,12 @@ When we take successive powers of the transition matrix, it can be observed that
             \end{pmatrix}$
 	\end{center}
 
-The n-step transition matrix $\textbf{P}^n$ does not converge to some equilibrium matrix $\sigma$ as \textit{n} $\rightarrow \infty$. Therefore, the long term state distribution of a periodic process cannot be constant \\
+	The n-step transition matrix $\mathbf{P}^n$ does not converge to some equilibrium matrix $\sigma$ as \emph{n} $\rightarrow \infty$. 
+	Therefore, the long term state distribution of a periodic process cannot be constant
 
-\underline{Reducible Markov Chains}\\
+\subsubsection*{Reducible Markov Chains}
 
-A Markov chain is said to be \textit{reducible} if it has more than one communication class. This implies that not every state in the state space is able to communicate with each other. To illustrate, consider the following reducible Markov chain.
+A Markov chain is said to be \emph{reducible} if it has more than one communication class. This implies that not every state in the state space is able to communicate with each other. To illustrate, consider the following reducible Markov chain.
 
 	\begin{center}
 	\begin{tikzpicture}[->, >=stealth', auto, semithick, node distance=3cm]
@@ -458,13 +530,17 @@ A Markov chain is said to be \textit{reducible} if it has more than one communic
     \end{tikzpicture}
 	\end{center}
 
-In this example, there are two communication classes, namely \{$s_1$\} and \{$s_2,s_3$\}. As a result, the long term behavior of the process depends entirely on the initial state of the process. For instance, if the process starts at $s_1$, then it will stay there forever, but if it starts either at $s_2$ or $s_3$, then the process will stay in that communication class forever. Therefore, the stationary probability distribution of a reducible Markov chain depends on its starting distribution $\vec{\pi}$ (More on this in the next section). \\ 
+	In this example, there are two communication classes, namely \{$s_1$\} and \{$s_2,s_3$\}. As a result, the long term behavior of 
+	the process depends entirely on the initial state of the process. For instance, if the process starts at $s_1$, then it will stay 
+	there forever, but if it starts either at $s_2$ or $s_3$, then the process will stay in that communication class forever. Therefore, 
+	the stationary probability distribution of a reducible Markov chain depends on its starting distribution $\vec{\pi}$ (More on this in 
+	the next section). 
 
-\underline{Regular Markov Chains}\\
+	\subsubsection*{Regular Markov Chains}
 
-	We now look at Markov chains that do possess an equilibrium distribution, also known as \textit{regular} Markov chains. Contrary to the previous two types of Markov chains we have seen, a regular Markov chain must be \textit{aperiodic}, \textit{irreducible}, and also \textit{positive recurrent}. In other words, this means that the process must only have states that are visited aperiodically, one communication class for the entire state space, and a mean number of visits to every state that is infinite.
+	We now look at Markov chains that do possess an equilibrium distribution, also known as \emph{regular} Markov chains. Contrary to the previous two types of Markov chains we have seen, a regular Markov chain must be \emph{aperiodic}, \emph{irreducible}, and also \emph{positive recurrent}. In other words, this means that the process must only have states that are visited aperiodically, one communication class for the entire state space, and a mean number of visits to every state that is infinite.
 	
-	 One easy way to check if a Markov chain obeys these conditions is by finding some power of the n-step transition matrix $\textbf{P}^n$ for which the matrix contains only strictly positive entries. As such, for that number \textit{n}, every n-step transition probability $p_{ij}(n)$ has a strictly positive value, thereby demonstrating that the process is \textit{irreducible} since every state communicates with each other and belongs to a single communication class.  Moreover, this method also works to show that the Markov chain is aperiodic since every n-step self-transition probability is greater than 0 (i.e. $p_{ii}(n) > 0$).  This means that the process must again be able to perform this self-transition in the next step $p_{ii}(n+1) > 0$, thereby breaking the periodicity of the process. Finally, knowing that the process is irreducible, this implies that every state in the process must be recurrent such that the mean number of visits to every state is infinite. Hence, positive recurrence is a property that is always present in a finite irreducible Markov chain. 
+	 One easy way to check if a Markov chain obeys these conditions is by finding some power of the n-step transition matrix $\mathbf{P}^n$ for which the matrix contains only strictly positive entries. As such, for that number \emph{n}, every n-step transition probability $p_{ij}(n)$ has a strictly positive value, thereby demonstrating that the process is \emph{irreducible} since every state communicates with each other and belongs to a single communication class.  Moreover, this method also works to show that the Markov chain is aperiodic since every n-step self-transition probability is greater than 0 (i.e. $p_{ii}(n) > 0$).  This means that the process must again be able to perform this self-transition in the next step $p_{ii}(n+1) > 0$, thereby breaking the periodicity of the process. Finally, knowing that the process is irreducible, this implies that every state in the process must be recurrent such that the mean number of visits to every state is infinite. Hence, positive recurrence is a property that is always present in a finite irreducible Markov chain. 
 	 In brief, regular Markov chains are the only processes for which the steady-state distribution both exists and is nontrivial. We will examine how these equilibrium distributions can be determined in the next section.
 	
 	\subsection*{Steady-State Distribution}
@@ -482,7 +558,9 @@ In this example, there are two communication classes, namely \{$s_1$\} and \{$s_
 	\end{aligned}
 	\end{equation*}
 	
-As mentioned, for regular Markov chains, we can expect to find a stationary distribution as $n \rightarrow \infty$. However, instead of computing large powers of the transition matrix, we can solve the following matrix equation to find the equilibrium distribution $\vec{\pi^*}$
+	As mentioned, for regular Markov chains, we can expect to find a stationary distribution as $n \rightarrow \infty$. However, 
+	instead of computing large powers of the transition matrix, we can solve the following matrix equation to find the equilibrium 
+	distribution $\vec{\pi^*}$
 	
 	\begin{equation*}
 	\begin{aligned}
@@ -491,7 +569,8 @@ As mentioned, for regular Markov chains, we can expect to find a stationary dist
 	\end{aligned}
 	\end{equation*}
     
-where $I_k$ is a k-sized identity matrix. As a result, the steady-state distribution vector is simply a left eigenvector of the transition matrix with corresponding eigenvalue 1.\\
+	where $I_k$ is a k-sized identity matrix. As a result, the steady-state distribution vector is simply a left eigenvector of the 
+	transition matrix with corresponding eigenvalue 1.
 
 \begin{tcolorbox}*{Example 1: Restaurants}
 	Every day, a hungry customer eats at one of three restaurants, each serving a different cuisine: Chinese, Italian, and Mexican, 		conveniently denoted as states 1, 2, and 3 respectively.
@@ -517,10 +596,11 @@ where $I_k$ is a k-sized identity matrix. As a result, the steady-state distribu
         \end{tikzpicture}
 	\end{center}
 
-For this Markov chain to be regular, we will consider the following transition matrix, which is also the default matrix implemented in the Streamlit simulation.
+	For this Markov chain to be regular, we will consider the following transition matrix, which is also the default matrix implemented 
+	in the Streamlit simulation.
 
 	\begin{center}	
-	$\textbf{P}=$
+	$\mathbf{P}=$
            $\begin{pmatrix}
                 0.5 & 0.2 & 0.3 \\
                 0.6 & 0.3 & 0.1 \\
@@ -528,17 +608,25 @@ For this Markov chain to be regular, we will consider the following transition m
             \end{pmatrix}$
 	\end{center}
 
-Since the one-step transition matrix already has only strictly positive entries, this process is considered to be regular and therefore it must have an equilibrium distribution.\\
+	Since the one-step transition matrix already has only strictly positive entries, this process is considered to be regular and 
+	therefore it must have an equilibrium distribution.
 
 In the Python code, the theoretical equilibrium distribution is found by computing the left eigenvector of the transition matrix with corresponding eigenvalue 1, which is then compared to the experimental distribution that is found by computing successive powers of the transition matrix. As the process moves forward in steps, it can be observed that the theoretical and experimental distributions start to match as the initial condition of the process quickly becomes insignificant.
 
 \section*{Absorbing Markov Chain}
 
-	We now begin our study of \textit{absorbing} Markov chains, which are almost polar opposites of \textit{regular} Markov chains. To contextualize, if a process is in state $s_i$ and is unable to leave it, then that state is considered to be an \emph{absorbing} state. Additionally, if it is possible to go from any \textit{non-absorbing} state to an absorbing state in one or more steps, then the entire process is considered to be an \emph{absorbing} Markov chain. Notice that \textit{absorbing} states are also \textit{recurrent}, whereas non-absorbing states are \textit{transient} since the process can be absorbed starting from any non-absorbing state.	
+	We now begin our study of \emph{absorbing} Markov chains, which are almost polar opposites of \emph{regular} Markov chains. 
+	To contextualize, if a process is in state $s_i$ and is unable to leave it, then that state is considered to be an \emph{absorbing} 
+	state. Additionally, if it is possible to go from any \emph{non-absorbing} state to an absorbing state in one or more steps, then 
+	the entire process is considered to be an \emph{absorbing} Markov chain. Notice that \emph{absorbing} states are also 
+	\emph{recurrent}, whereas non-absorbing states are \emph{transient} since the process can be absorbed starting from any 
+	non-absorbing state.	
 	
 	\subsection*{Canonical Form}
 	
-The canonical form is a representation of the transition matrix \textbf{P} into 4 smaller matrices. Suppose the transition matrix of an absorbing Markov chain has \textit{t} transient states and \textit{r} absorbing states. Then the canonical form of the transition matrix \textbf{P} is
+	The canonical form is a representation of the transition matrix $\mathbf{P}$ into 4 block matrices. Suppose the transition matrix 
+	of an absorbing Markov chain has $t$ transient states and $r$ absorbing states. Then the canonical form of the 
+	transition matrix $\mathbf{P}$ is
 	 \[
     P = \left(
     \begin{array}{c|c}
@@ -549,53 +637,63 @@ The canonical form is a representation of the transition matrix \textbf{P} into 
     \right)
   \]
   
-where \textit{Q} is a $t \times t$ matrix, \textit{0} is an $r \times t$ zero matrix, \textit{R} is a $t \times r$ nonzero matrix, and $I_r$ is a $r \times r$ matrix. Since the matrix \textit{Q} only contains transient states, it summarizes the transition probabilities between non absorbing states. The matrix \textit{R} contains transient and recurrent states, thereby representing the transition probabilities from non-absorbing states to absorbing ones. Next, we know that it is impossible to go from an absorbing state to a non-absorbing state, hence the \textit{0} matrix. And finally, the identity matrix $I_r$ contains the self-transition probabilities for the absorbing states which are obviously 1.
+	where $Q$ is a $t \times t$ matrix, $0$ is an $r \times t$ zero matrix, $R$ is a $t \times r$ nonzero matrix, and $I_r$ is a 
+	$r \times r$ matrix. Since the matrix $Q$ only contains transient states, it summarizes the transition probabilities 
+	between non absorbing states. The matrix $R$ contains transient and recurrent states, thereby representing the transition 
+	probabilities from non-absorbing states to absorbing ones. Next, we know that it is impossible to go from an absorbing state 
+	to a non-absorbing state, hence the $0$ matrix. And finally, the identity matrix $I_r$ contains the self-transition 
+	probabilities for the absorbing states which are 1.
 
-Moreover, a simple exercise shows that the \textit{n}th power of the canonical form matrix yields
+Moreover, a simple exercise shows that the $n$th power of the canonical form matrix yields
 
-	 \[
-    P^n = \left(
-    \begin{array}{c|c}
-      Q^n & R + QR + Q^2R + ... + Q^{n-1}R\\
-      \hline
-      0 & I_r
-    \end{array}
-    \right)
-  \]
-  	 \[
-    P^n = \left(
-    \begin{array}{c|c}
-      Q^n & \sum_{k=1}^{n}Q^{k-1}R\\
-      \hline
-      0 & I_r
-    \end{array}
-    \right)
-  \]
-\\
-Notice that we obtain the n-step transition probabilities between transient states under $Q^n$. Even more interestingly, we observe that the top-right matrix expression is closely related to a geometric distribution.
-Now, consider the n-step transition matrix as \textit{n} approaches infinity
-\\
-\\
-  	 \[
-    \lim_{n\to\infty}P^n = \left(
-    \begin{array}{c|c}
-      \lim_{n\to\infty} Q^n & \sum_{k=1}^{\infty}Q^{k-1}R\\
-      \hline
-      0 & I_r
-    \end{array}
-    \right)
-  \]
-\\
-\\
-First, let us examine the top-left expression (i.e. $lim_{n\to\infty}Q^n$). Since it is possible to go from any non-absorbing state to an absorbing one, this means that the sum of every row in \textit{Q} must be smaller than 1. As a result, the largest eigenvalue of \textit{Q} must also be smaller than 1, and therefore $Q^n \rightarrow 0$ as $n \rightarrow \infty$. In other words, the probability that an absorbing Markov chain will be absorbed is 1.
+	\begin{equation*}
+	\begin{aligned}
+		P^n = \left(
+		\begin{array}{c|c}
+		Q^n & R + QR + Q^2R + ... + Q^{n-1}R\\
+		\hline
+		0 & I_r
+		\end{array}
+    	\right)
+	\end{aligned}
+	\end{equation*}	
 
-%Suppose a process starts at a non-absorbing state $s_j$. We note the probability that the process does not move from $s_j$ to an absorbing state as the sum of the row of \textit{Q} that corresponds to the transient state $s_j$; we denote this probability as $p_j$. Since we know that it is possible to go from any non-absorbing state to an absorbing one (not necessarily in one step), then $p_j$ \leq 1.
+	\begin{equation*}
+	\begin{aligned}
+		P^n = \left(
+		\begin{array}{c|c}
+		Q^n & \sum_{k=1}^{n}Q^{k-1}R\\
+		\hline
+		0 & I_r
+		\end{array}
+		\right)
+	\end{aligned}
+	\end{equation*}	
+
+	Notice that we obtain the n-step transition probabilities between transient states under $Q^n$. Even more interestingly, we observe that the top-right matrix expression is closely related to a geometric distribution.
+Now, consider the n-step transition matrix as $n$ approaches infinity
+
+	\begin{equation*}
+	\begin{aligned}
+		\lim_{n\to\infty}P^n = \left(
+		\begin{array}{c|c}
+		\lim_{n\to\infty} Q^n & \sum_{k=1}^{\infty}Q^{k-1}R\\
+		\hline
+		0 & I_r
+		\end{array}
+		\right)
+	\end{aligned}
+	\end{equation*}	
+First, let us examine the top-left expression (i.e. $lim_{n\to\infty}Q^n$). Since it is possible to go from any non-absorbing state to an absorbing one, this means that the sum of every row in \emph{Q} must be smaller than 1. As a result, the largest eigenvalue of \emph{Q} must also be smaller than 1, and therefore $Q^n \rightarrow 0$ as $n \rightarrow \infty$. In other words, the probability that an absorbing Markov chain will be absorbed is 1.
+
+%Suppose a process starts at a non-absorbing state $s_j$. We note the probability that the process does not move from $s_j$ to an absorbing state as the sum of the row of \emph{Q} that corresponds to the transient state $s_j$; we denote this probability as $p_j$. Since we know that it is possible to go from any non-absorbing state to an absorbing one (not necessarily in one step), then $p_j$ \leq 1.
 
 As for the top-right expression (i.e. $\lim_{n\to\infty} \sum_{k=1}^{\infty}Q^{k-1}R$), it contains the absorbing probabilities of the Markov chain, which will be further discussed in the next section.
 
 	\subsection*{The Fundamental Matrix}
 	
-For any absorbing Markov chain, the \textit{fundamental matrix} denoted \textit{N} provides the expected number of visits to a non-absorbing state. 
+	For any absorbing Markov chain, the \emph{fundamental matrix} denoted $N$ provides the expected number of visits to a non-absorbing 
+	state. 
 
 	\begin{equation*}
 	\begin{aligned}
@@ -603,7 +701,10 @@ For any absorbing Markov chain, the \textit{fundamental matrix} denoted \textit{
 	\end{aligned}
 	\end{equation*}	
 	
-More specifically, the (i,j) entry of the fundamental matrix \textit{N} gives the expected number of visits to the transient state $s_j$ given that the process starts at the transient state $s_i$. This can be shown by starting from the definition of expectation and by defining the indicator random variable $I_n$ for the event $\{X_n = s_j\}$. Recall that a very similar derivation was already shown on page 7.
+	More specifically, the (i,j) entry of the fundamental matrix $N$ gives the expected number of visits to the transient state $s_j$ 
+	given that the process starts at the transient state $s_i$. This can be shown by starting from the definition of expectation and 
+	by defining the indicator random variable $I_n$ for the event $\{X_n = s_j\}$. Recall that a very similar derivation was already 
+	shown on page 7.
 
 	\begin{equation*}
 	\begin{aligned}
@@ -616,33 +717,36 @@ More specifically, the (i,j) entry of the fundamental matrix \textit{N} gives th
 	\end{aligned}
 	\end{equation*}
 
-From these above equations, we can further simplify our limiting transition matrix
-
-\\
-  	 \[
-    \lim_{n\to\infty}P^n = \left(
-    \begin{array}{c|c}
-      0 & NR \\
-      \hline
-      0 & I_r
-    \end{array}
-    \right)
-  \]
-\\
-
-If we let B = NR, then the (i,j) entry of matrix B gives the probability that the the process will be absorbed at the absorbing state $s_j$ given that it started at the transient state $s_i$. To show that the is true, by the law of total probability, we must consider every possible route from $s_i$ to $s_j$ through intermediate transient states $s_k$, and also for all possible number of steps.
+	From these above equations, we can further simplify our limiting transition matrix
 
 	\begin{equation*}
-	\begin{aligned}
+		\begin{aligned}
+			\lim_{n\to\infty}P^n = \left(
+			\begin{array}{c|c}
+			0 & NR \\
+			\hline
+			0 & I_r
+			\end{array}
+			\right)
+		\end{aligned}
+	\end{equation*}
+
+	If we let B = NR, then the (i,j) entry of matrix B gives the probability that the the process will be absorbed at the absorbing 
+	state $s_j$ given that it started at the transient state $s_i$. To show that the is true, by the law of total probability, we must 
+	consider every possible route from $s_i$ to $s_j$ through intermediate transient states $s_k$, and also for all possible number of steps.
+
+	\begin{equation*}
+		\begin{aligned}
 		 B_{ij} &= \sum_{n} \sum_{k} q_{ik}(n)r_{kj} \\
 		 		&= \sum_{n} \sum_{k} (Q^n)_{ik} r_{kj} \\
 		 		&= \sum_{k} n_{ik}r_{kj} \\
 		 		&= (NR)_{ij}
-
-	\end{aligned}
+		\end{aligned}
 	\end{equation*}
 
-Finally, we can even use the fundamental matrix \textit{N} to determine the expected time to absorption given that the process starts at a transient state $s_i$. To show this, let \textit{t} be a column vector such that its entries $t_i$ give the expected time to absorption given that the process starts at $s_i$. Then
+	Finally, we can even use the fundamental matrix $N$ to determine the expected time to absorption given that the process starts at a 
+	transient state $s_i$. To show this, let $t$ be a column vector such that its entries $t_i$ represent the expected time to 
+	absorption given that the process starts at $s_i$. Then
 
 	\begin{equation*}
 	\begin{aligned}
@@ -650,21 +754,21 @@ Finally, we can even use the fundamental matrix \textit{N} to determine the expe
 	\end{aligned}
 	\end{equation*}
 	
-where \textit{1} is a column vector of 1s. To visualize the calculation,
+	where $1$ is a column vector of 1s. To visualize the calculation,
 
 	\begin{equation*}
-	\begin{aligned}
+		\begin{aligned}
 		 t_i = \sum_{k} N_{ik}
-	\end{aligned}
+		\end{aligned}
 	\end{equation*}
 	
-Therefore, we are adding the expected visits to all non-absorbing states given that the process starts at $s_i$, which is also indicative of the total expected number of steps until the process is absorbed.
-\\
-\\
+	Therefore, we are adding the expected visits to all non-absorbing states given that the process starts at $s_i$, which 
+	is also indicative of the total expected number of steps until the process is absorbed.
+
 	\begin{tcolorbox}
 	\subsection*{Example 2: Gambler's Ruin}
-    	A gambler has an initial wealth of \textbf{k} dollars and bets 1\$ every round with probability \textbf{p} of winning each 				round.
-    	The gambler keeps playing until his wealth is either emptied or reaches a value \textbf{n} (see Figure 2).   
+    	A gambler has an initial wealth of $\mathbf{k}$ dollars and bets 1\$ every round with probability $\mathbf{p}$ of winning each 				round.
+    	The gambler keeps playing until his wealth is either emptied or reaches a value $\mathbf{n}$ (see Figure 2).   
 	\end{tcolorbox}	    
         \begin{tikzpicture}[->, >=stealth', auto, semithick, node distance=3cm]
         \tikzstyle{every state}=[fill=white,draw=black,thick,text=black,scale=1]
@@ -684,11 +788,13 @@ Therefore, we are adding the expected visits to all non-absorbing states given t
         (E) edge[loop right]        node{$1$}   (E);
         \end{tikzpicture}
         
-The states $s_0$ and $s_n$ are considered \emph{absorbing} whereas the states $s_1, s_2, ..., s_{n-1}$ are \emph{transient}. Furthermore, the transition probabilities can be summarized using a transition matrix \textbf{P}       
-\\     
-        \begin{center}
-        $\textbf{P} =$
-           $\begin{pmatrix}
+	The states $s_0$ and $s_n$ are considered \emph{absorbing} whereas the states $s_1, s_2, ..., s_{n-1}$ are \emph{transient}. 
+	Furthermore, the transition probabilities can be summarized using a transition matrix $\mathbf{P}$ 
+	
+	\begin{equation}
+		\begin{aligned}
+        \mathbf{P} =
+           \begin{pmatrix}
                 1 & 0 & 0   & 0   & \ldots & 0 & 0 & 0& 0\\
                 1-p & 0   & p & 0   & \ldots & 0 & 0 & 0& 0\\
                 0 & 1-p   & 0   & p & \ldots & 0 & 0 & 0& 0\\
@@ -698,105 +804,117 @@ The states $s_0$ and $s_n$ are considered \emph{absorbing} whereas the states $s
                 0 & 0   & 0   & 0   &\ldots &1-p &0 & p & 0\\
                 0 & 0   & 0   & 0   &\ldots &0 &1-p & 0 & p\\
                 0 & 0   & 0   & 0   &\ldots &0 &0 & 0 & 1
-            \end{pmatrix}$
-        \end{center}
-\\
-For the sake of simplicity, we will consider the following transition matrix that contains 3 transient states and 2 absorbing states.
-\\
-        \begin{center}
-        $\textbf{P} =$
-           $\begin{pmatrix}
+            \end{pmatrix}
+		\end{aligned}
+	\end{equation}
+
+	For the sake of simplicity, we will consider the following transition matrix that contains 3 transient states and 
+	2 absorbing states.
+
+	\begin{equation}
+		\begin{aligned}
+        \mathbf{P} =
+           \begin{pmatrix}
                 1   & 0   & 0   & 0   & 0   \\
                 1/2 & 0   & 1/2 & 0   & 0   \\
                 0   & 1/2 & 0   & 1/2 & 0   \\
                 0   & 0   & 1/2 & 0   & 1/2 \\
                 0   & 0   & 0   & 0   & 1   \\
-            \end{pmatrix}$
-        \end{center}
-\\
+            \end{pmatrix}
+		\end{aligned}
+	\end{equation}
+
 The canonical form of the transition matrix
-\\
-	$$\newcommand*{\temp}{\multicolumn{1}{r|}{}}
-	A=\left(\begin{array}{cccccc}
-	0 & 1/2 & 0 &\temp & 1/2 & 0\\
-	1/2 & 0 & 1/2 &\temp & 0& 0\\
-	0 & 1/2 & 0 &\temp & 0& 1/2\\ \cline{1-6}
-	0 & 0 & 0 &\temp &1& 0\\
-	0 & 0 & 0 &\temp &0& 1\\
-	\end{array}\right)
-	$$
-\\
+
+	\begin{equation}
+		\begin{aligned}
+		\newcommand*{\temp}{\multicolumn{1}{r|}{}}
+		A=\left(\begin{array}{cccccc}
+		0 & 1/2 & 0 &\temp & 1/2 & 0\\
+		1/2 & 0 & 1/2 &\temp & 0& 0\\
+		0 & 1/2 & 0 &\temp & 0& 1/2\\ \cline{1-6}
+		0 & 0 & 0 &\temp &1& 0\\
+		0 & 0 & 0 &\temp &0& 1\\
+		\end{array}\right)
+		\end{aligned}
+	\end{equation}
+
 Therefore
-\\
-		\begin{center}
-        $\textbf{Q} =$
-           $\begin{pmatrix}
+
+	\begin{equation}
+		\begin{aligned}
+        \mathbf{Q} =
+           \begin{pmatrix}
                 0   & 1/2   & 0   \\
                 1/2 & 0   & 1/2 \\
                 0   & 1/2 & 0   
-            \end{pmatrix}$
+            \end{pmatrix}
             ;
-        $\textbf{R} =$
-           $\begin{pmatrix}
+        \mathbf{R} =
+           \begin{pmatrix}
                 1/2 & 0   \\
                 0   & 0   \\
                 0   & 1/2  
-            \end{pmatrix}$
-        \end{center}
-\\
+            \end{pmatrix}
+		\end{aligned}
+	\end{equation}
 The fundamental matrix is given as
-\\
-		\begin{center}
-        $N = (I-Q)^{-1} = $
-           $\begin{pmatrix}
+
+	\begin{equation}
+		\begin{aligned}
+        	N = (I-Q)^{-1} = 
+           \begin{pmatrix}
                 3/2 & 1 & 1/2 \\ 
                 1   & 2 & 1   \\
                 1/2 & 1 & 3/2  
-            \end{pmatrix}$
-        \end{center}
-\\
-We now find the \textit{t} column vector whose entries $t_i$ contain the expected time to absorption given that the process starts at $s_i$
-\\
-		\begin{center}
-        $\textbf{t} =$
-           $\begin{pmatrix}
-                3 \\
-                4 \\
-                3 \\
-            \end{pmatrix}$
+            \end{pmatrix}
+		\end{aligned}
+	\end{equation}
 
-        \end{center}
-\\
+We now find the \emph{t} column vector whose entries $t_i$ contain the expected time to absorption given that the process starts 
+at $s_i$
+
+	\begin{equation}
+		\begin{aligned}
+			\mathbf{t} =
+			\begin{pmatrix}
+					3 \\
+					4 \\
+					3 \\
+				\end{pmatrix}
+			\end{aligned}
+	\end{equation}
+
 Now that we have the theoretical results, we can use the Streamlit simulation to produce experimental results for comparison. 
-As initial conditions, we set the target to 4 and the initial wealth to 2. Therefore, the expected number of steps until the process is absorbed is 4 (according to the second entry of the \textit{t} column vector).
+As initial conditions, we set the target to 4 and the initial wealth to 2. Therefore, the expected number of steps until the process is absorbed is 4 (according to the second entry of the \emph{t} column vector).
 
 For a sample size of 101, it was experimentally found that the sample mean was 3.9802 and the standard deviation was 2.4248.
 As an exercise, we will construct a 95\% confidence interval for the average number of steps to absorption. Since the population variance is unknown, we use the t-distribution to find the critical t value: $t_{0.025,100} = 1.984$. Then, we construct the confidence interval
 
 	\begin{equation*}
-	\begin{aligned}
+		\begin{aligned}
 		 \overline{x} - t_{0.025,100}\frac{s}{\sqrt{n}} &\leq \mu \leq \overline{x} + t_{0.025,100} \frac{s}{\sqrt{n}} \\
 		 3.9802 - 1.984\frac{2.4248}{\sqrt{101}} &\leq \mu \leq 3.9802 + 1.984\frac{2.4248}{\sqrt{101}} \\
 		 3.5015 &\leq \mu \leq 4.4589
-	\end{aligned}
+		\end{aligned}
 	\end{equation*}
 
-With repeated sampling, we are 95\% confident that the true mean number of games that the gambler must play until they lose or win lies between 3.5015 and 4.4589. Since 4 $\in$ C.I., we have sufficient evidence to believe that the experimental results match the theoretical ones.
+With repeated sampling, we are 95\% confident that the true mean number of games that the gambler must play until they lose or win lies 
+between 3.5015 and 4.4589. Since 4 $\in$ C.I., we have sufficient evidence to believe that the experimental results match the theoretical 
+ones.
 
 \clearpage
-\begin{thebibliography}{2}
-\bibitem{texbook}
-Grinstead, Charles M, J L. Snell, and J L. Snell. \emph{Introduction to Probability}. Providence, RI: American Mathematical Society, 1997.
 
-\bibitem{texbook}
-"Markov Chains: Introduction" MTHE/STAT455, STAT855 Lecture Notes, https://mast.queensu.ca/~stat455/lecturenotes/lecturenotes.shtml. 
 
-\bibitem{texbook}
-Department of Statistics, The University of Auckland.  Developed by Rachel Cunliffe. "Lecture Notes for Stats 325." Department of Statistics, https://www.stat.auckland.ac.nz/~fewster/325/notes.php. 
+% Grinstead, Charles M, J L. Snell, and J L. Snell. \emph{Introduction to Probability}. Providence, RI: American Mathematical Society, 1997.
 
-\bibitem{texbook}
-"Probabilistic Systems Analysis and Applied Probability: Electrical Engineering and Computer Science." MIT OpenCourseWare, MIT OpenCourseWare, https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010/. 
 
-\end{thebibliography}
+% "Markov Chains: Introduction" MTHE/STAT455, STAT855 Lecture Notes, https://mast.queensu.ca/~stat455/lecturenotes/lecturenotes.shtml. 
+
+% Department of Statistics, The University of Auckland.  Developed by Rachel Cunliffe. "Lecture Notes for Stats 325." Department of Statistics, https://www.stat.auckland.ac.nz/~fewster/325/notes.php. 
+
+% "Probabilistic Systems Analysis and Applied Probability: Electrical Engineering and Computer Science." MIT OpenCourseWare, MIT OpenCourseWare, https://ocw.mit.edu/courses/6-041-probabilistic-systems-analysis-and-applied-probability-fall-2010/. 
+
+%https://www.uni-ulm.de/fileadmin/website_uni_ulm/mawi.inst.110/lehre/ws13/Stochastik_II/Skript_2B.pdf
 
 \end{document}
