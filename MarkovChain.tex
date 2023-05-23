@@ -25,6 +25,7 @@
 \usetikzlibrary{automata,positioning,fit,shapes.geometric,backgrounds} % Node grouping
 \renewcommand{\arraystretch}{1.6}
 
+\theoremstyle{definition}
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
 \newtheorem{lemma}{Lemma}
@@ -338,9 +339,9 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	\begin{proposition}
 		Communication is considered to be an equivalence relationship.
 	\end{proposition}
-	\begin{proof}
-		We must prove that the relation is \emph{reflexive}, \emph{symmetric}, and \emph{transitive}. 
-		We will focus our attention on \emph{transitivity} and leave the rest as exercises. \\
+	To do so, we must verify that the relation is indeed \emph{reflexive}, \emph{symmetric}, and \emph{transitive}. 
+	We will prove \emph{transitivity} and leave the rest as exercises. 
+		\begin{proof}	
 		Let $s_i, s_j, s_k \in S$ where $s_i \leftrightsquigarrow s_j$ and $s_j \leftrightsquigarrow s_k$.
 		Then by definition, we know that there exist some integers $n$ and $m$ such that 
 		$p_{ik}(n) > 0$ and $p_{kj}(m) > 0$. For $s_j$ to be \emph{accessible} from $s_i$, we need to show that 
@@ -359,7 +360,7 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	\end{equation*}	
 	
 	By assumption, there exists at least one intermediate state $s_k$ that communicates both with $s_i$ and $s_j$ (i.e. $p_{ik}(n) > 0$ 
-	and $p_{kj}(m) > 0$), then the following inequality holds true only for the communicating intermediate states $s_k$.
+	and $p_{kj}(m) > 0$), then the following inequality holds true only for the \emph{communicating} intermediate state $s_k$.
 
 	\begin{equation*}
 	\begin{aligned}
@@ -374,6 +375,24 @@ Likewise, we can use a similar approach to find the probability distribution of 
 
 	\subsection*{State Classification}
 	
+	For any Markov Chain, we classify each state according to the following definitions.
+	\begin{definition}
+		A state $s_i \in S$ is called \emph{recurrent} if 
+		\begin{equation*}
+			\begin{aligned}
+				P(X_n = s_i \, \text{for infinitely many} \, n) = 1
+			\end{aligned}
+		\end{equation*}
+	\end{definition}
+	\begin{definition}
+		A state $s_i \in S$ is called \emph{transient} if 
+		\begin{equation*}
+			\begin{aligned}
+				P(X_n = s_i \, \text{for infinitely many} \, n) = 0
+			\end{aligned}
+		\end{equation*}
+	\end{definition}
+
 	In any Markov chain, each individual state can either be classified as a \emph{recurrent} or \emph{transient} state. A state $s_i$ is called \emph{recurrent} if the process starting at $s_i$ will eventually return to $s_i$ after some \emph{n} steps. Conversely, a state $s_i$ is called \emph{transient} if the process starting again at $s_i$ might never return to $s_i$ in the future. Consider the following figure.
 
 	\begin{center}
@@ -401,11 +420,26 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	eventually return to that initial state. More formally, if we define $f_{ii}$ as the probability that a process starting 
 	at $s_i$ returns to $s_i$ at least once.
 	
+
 	\begin{equation*}
 		\begin{aligned}
-			f_{ii} = P(X_n = s_i \, \text{for some} \, n  \geq 1 | X_0 = s_i)
+			f_{ii} := P(X_n = s_i \, \text{for some} \, n \in T | X_0 = s_i)
 		\end{aligned}
 	\end{equation*}
+
+	\begin{theorem}
+		\begin{enumerate}
+			\item 
+		\end{enumerate}
+	\end{theorem}
+
+	\begin{theorem}
+		Let $s_i \in S$ be a state of a Markov Process.
+		\begin{enumerate}
+			\item If $s_i$ is a \emph{recurrent} state and $s_i \leftrightsquigarrow s_j$, then $s_j$ is also \emph{recurrent}.
+			\item If $s_i$ is a \emph{transient} state and $s_i \leftrightsquigarrow s_j$, then $s_j$ is also \emph{transient}.
+		\end{enumerate}
+	\end{theorem}
 	 
 	then $s_i$ is said to be \emph{recurrent} if $f_{ii} = 1$, and \emph{transient} if $f_{ii} < 1$. This means that if a process starts at a \emph{recurrent} state, then there must exist some \emph{n} steps for which the process returns to that state again. When that happens, the memoryless and time-homogeneous properties ensure that the process will continue to return repeatedly to that recurrent state in the future since $f_{ii} = 1$ every time the process reaches that state.  Therefore, the recurrent state will be visited infinitely many times. On the other hand, if the process starts at a \emph{transient} state, then it will continue to return to that state with probability $f_{ii}$ every time it reaches it, until it is no longer able to return anymore with probability $1 - f_{ii}$. Subsequently, we observe that the number of times \emph{N} that the transient state is visited follows a geometric distribution with "success" probability $1 - f_{ii}$, which is the probability that the process can no longer revisit the transient state $s_i$. If we  count $X_0 = s_i$ as the first visit to $s_i$, and define $N_i$ as the number of visits to $s_i$
 	
