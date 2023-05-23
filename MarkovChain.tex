@@ -26,10 +26,10 @@
 \renewcommand{\arraystretch}{1.6}
 
 \theoremstyle{definition}
-\newtheorem{definition}{Definition}
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{lemma}{Lemma}[subsection]
+\newtheorem{proposition}{Proposition}[subsection]
 \pgfplotsset{width=10cm,compat=1.9}
 
 % stats commands
@@ -92,10 +92,10 @@
 
 In the year 1906, Russian mathematician Andrey Markov published his first paper
 introducing a probabilistic model that analyses sequences of events, 
-which would later be designated as \emph{Markov Chains} or \emph{Markov Processes}. His work has been extensively employed
+which would later be designated as \emph{Markov chains} or \emph{Markov Processes}. His work has been extensively employed
 in many important fields such as Natural Language Processing (NLP), PageRank, speech recognition, robot localization, etc.
 
-\section*{Markov Chain}
+\section{Markov Chain}
 
 	A Markov chain describes a discrete-time stochastic process that consists of a finite (or infinite) set of states 
 	$S = \{s_1, s_2, ..., s_n \}$, which is also known as a \emph{state space}. Initially, the process begins at any 
@@ -104,7 +104,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 	that it transitions to state $s_j$ in one step as $p_{ij}$.
 	\newline
 	Furthermore, consider a sequence of random variables $\mathbf{X} = \{X_n \in S | n \in T\}$ where \emph{T} is a time index 
-	set. Then $\mathbf{X}$ is said to be a Markov Chain if, at any given time $n$, the conditional probability distribution for future states
+	set. Then $\mathbf{X}$ is said to be a Markov chain if, at any given time $n$, the conditional probability distribution for future states
 	of the process depends only on its present state and not its past states. In mathematical notation, this memoryless
 	property can be expressed as
 
@@ -116,7 +116,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 
 	This is formally known as the \emph{Markov property} or \emph{Markov assumption}
 	
-\subsection*{Time Homogeneity}
+\subsection{Time Homogeneity}
 	
 	Another important assumption that must be made about the Markov process $\mathbf{X}$ is that the conditional probability 
 	distribution of $X_{n+1}$ given $X_n$ is independent of the time $n$.
@@ -128,7 +128,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 	In contrast, processes whose transition probabilities actually depend on the time index $n$ are called \emph{time-inhomogenous}.
 	For our purposes, we will only focus on \emph{time-homogeneous} processes.
 	
-\subsection*{Transition Probabilities}
+\subsection{Transition Probabilities}
 	
 	For a single-step transition, recall that the probability of moving from state $s_i$ to $s_j$ is denoted as $p_{ij}$. 
 	However, this notation quickly becomes strenuous if we wish to determine the evolution of the process after 2 or more
@@ -236,7 +236,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 	\end{equation*}
 
 	\begin{theorem}
-		Let $s_i, s_j \in S$ be states of a Markov Chain with transition matrix $\mathbf{P}$. Then
+		Let $s_i, s_j \in S$ be states of a Markov chain with transition matrix $\mathbf{P}$. Then
 		\begin{equation*}
 		\begin{aligned}
 			p_{ij}(n) = (\mathbf{P}^n)_{ij}
@@ -258,7 +258,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 		\end{equation*}	
 	\end{proof}
 	
-\subsection*{State Probability Distribution}
+\subsection{State Probability Distribution}
 
 Suppose a Markov chain $\{X_n \in S|n \in T\}$ has a finite state space $S = \{s_1, s_2,..., s_k\}$. Then each random 
 variable $X_n$ has a state probability distribution that can be represented using a $k$-length row vector. For instance, 
@@ -331,11 +331,18 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	\end{aligned}
 	\end{equation*}
 	
-\subsection*{Accessibility and Communication}
+\subsection{Accessibility and Communication}
 
-	We say that a state $s_j$ is \emph{accessible} from $s_i$ if there exists some $n$ for which the n-step transition probability $p_{ij}(n) > 0$.
-	Alternatively, if $s_j$ is not accessible from $s_i$, then $p_{ij} = 0$ for all integers $n$. Moreover, if $s_i$ and $s_j$ 
-	are accessible to each other, then they are said to \emph{communicate}, which we denote by $s_i \leftrightsquigarrow s_j$.
+	\begin{definition}
+		A state $s_j$ is \emph{accessible} from another state $s_i$ if there exists some $n$ for which
+		\begin{equation*}
+			\begin{aligned}
+				p_{ij}(n) > 0
+			\end{aligned}
+			\end{equation*}
+		Moreover, if $s_i$ and $s_j$ are both \emph{accessible} to each other, then they are said to \emph{communicate}, denoted as $s_i \leftrightsquigarrow s_j$.
+	\end{definition}
+	
 	\begin{proposition}
 		Communication is considered to be an equivalence relationship.
 	\end{proposition}
@@ -367,15 +374,16 @@ Likewise, we can use a similar approach to find the probability distribution of 
 		 p_{ij}(n+m) \geq p_{ik}(m)p_{kj}(n) > 0
 	\end{aligned}
 	\end{equation*}	
-	Hence $s_j$ is accessible from $s_i$. A similar argument can be made in the other direction to show that $s_i$ is accessible from $s_j$.
+	Hence $s_j$ is accessible from $s_i$. A similar argument can be made in the other direction to show that $s_i$ is accessible from $s_j$,
+	thereby proving $s_i \leftrightsquigarrow s_j$.
 	\end{proof}
 
 	As a side note, we say that the \emph{communication classes} of a Markov Process are the equivalence classes of states under communication.
 	\newpage	
 
-	\subsection*{State Classification}
+	\subsection{State Classification}
 	
-	For any Markov Chain, we classify each state according to the following definitions.
+	For any Markov chain, we classify each state according to the following definitions.
 	\begin{definition}
 		A state $s_i \in S$ is called \emph{recurrent} if 
 		\begin{equation*}
@@ -393,7 +401,25 @@ Likewise, we can use a similar approach to find the probability distribution of 
 		\end{equation*}
 	\end{definition}
 
-	In any Markov chain, each individual state can either be classified as a \emph{recurrent} or \emph{transient} state. A state $s_i$ is called \emph{recurrent} if the process starting at $s_i$ will eventually return to $s_i$ after some \emph{n} steps. Conversely, a state $s_i$ is called \emph{transient} if the process starting again at $s_i$ might never return to $s_i$ in the future. Consider the following figure.
+	A \emph{recurrent} state has the property that a Markov chain starting at that state returns to it infinitely often, with probability 1.
+	A \emph{transient} state however has the property that a Markov chain starting at that state returns to it finitely often, with probability 1.
+
+	\begin{theorem}
+		Let $s_i \in S$ be a state of a Markov chain. Denote by $f_{ii}$ the probability that a Markov chain starting at $s_i$ returns to 
+		$s_i$ at least once, that is
+		\begin{equation*}
+			\begin{aligned}
+				f_{ii} := P(X_n = s_i \, \text{for some} \, n \in \N | X_0 = s_i)
+			\end{aligned}
+		\end{equation*}
+		Then,
+		\begin{enumerate}
+			\item The state $s_i$ is \emph{recurrent} if and only if $f_{ii} = 1$
+			\item The state $s_i$ is \emph{transient} if and only if $f_{ii} < 1$
+		\end{enumerate}
+	\end{theorem}
+
+	
 
 	\begin{center}
 	\begin{tikzpicture}[->, >=stealth', auto, semithick, node distance=3cm]
@@ -434,13 +460,20 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	\end{theorem}
 
 	\begin{theorem}
-		Let $s_i \in S$ be a state of a Markov Process.
+		Let $s_i, s_j \in S$ be states of a Markov chain.
 		\begin{enumerate}
 			\item If $s_i$ is a \emph{recurrent} state and $s_i \leftrightsquigarrow s_j$, then $s_j$ is also \emph{recurrent}.
 			\item If $s_i$ is a \emph{transient} state and $s_i \leftrightsquigarrow s_j$, then $s_j$ is also \emph{transient}.
 		\end{enumerate}
 	\end{theorem}
-	 
+	\begin{proof}
+		\begin{enumerate}
+			\item Suppose $s_j$ is a \emph{recurrent} state.
+			\item If $s_i$ is a \emph{transient} state and $s_i \leftrightsquigarrow s_j$, then $s_j$ is also \emph{transient}.
+		\end{enumerate}
+	\end{proof}
+
+
 	then $s_i$ is said to be \emph{recurrent} if $f_{ii} = 1$, and \emph{transient} if $f_{ii} < 1$. This means that if a process starts at a \emph{recurrent} state, then there must exist some \emph{n} steps for which the process returns to that state again. When that happens, the memoryless and time-homogeneous properties ensure that the process will continue to return repeatedly to that recurrent state in the future since $f_{ii} = 1$ every time the process reaches that state.  Therefore, the recurrent state will be visited infinitely many times. On the other hand, if the process starts at a \emph{transient} state, then it will continue to return to that state with probability $f_{ii}$ every time it reaches it, until it is no longer able to return anymore with probability $1 - f_{ii}$. Subsequently, we observe that the number of times \emph{N} that the transient state is visited follows a geometric distribution with "success" probability $1 - f_{ii}$, which is the probability that the process can no longer revisit the transient state $s_i$. If we  count $X_0 = s_i$ as the first visit to $s_i$, and define $N_i$ as the number of visits to $s_i$
 	
 	\begin{equation*}
@@ -472,7 +505,6 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	
 	 Then the expected number of visits to the transient state $s_i$ given that the process starts at $s_i$ can be expressed as such
 	
-	
 	\begin{equation*}
 	\begin{aligned}
 		 E[N_i|X_0 = s_i] &= E\left[\sum_{n=0}^\infty I_n | X_0 = s_i\right] \\
@@ -485,7 +517,7 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	
 Therefore, we can use the transition matrix $\mathbf{P}$ to determine the mean number of visits to a transient state.
 
-\subsection*{Convergence to Equilibrium}
+\subsection{Convergence to Equilibrium}
 		
 	By combining individual states in a process, we obtain different types of Markov chains; some of them have stabilizing 
 	long term behaviors while others do not. Note that by "stabilizing long term behavior", we mean that the process gradually 
@@ -493,7 +525,7 @@ Therefore, we can use the transition matrix $\mathbf{P}$ to determine the mean n
 	will then help us predict the long term proportion of time spent in each state. We will first look at examples of processes 
 	that do not have a stable long term behavior.
 	
-\subsubsection*{Periodic Markov Chains}
+\subsubsection{Periodic Markov Chains}
 
 A state in a Markov chain is said to be periodic if the process can only return to that state at multiples of an integer greater than 1. It should also be noted that periodicity is a \emph{class property}, meaning that if one state is periodic, then every other state in its communication class is also periodic. To illustrate, consider the following periodic Markov chain.
 
@@ -545,7 +577,7 @@ A state in a Markov chain is said to be periodic if the process can only return 
 	The n-step transition matrix $\mathbf{P}^n$ does not converge to some equilibrium matrix $\sigma$ as \emph{n} $\rightarrow \infty$. 
 	Therefore, the long term state distribution of a periodic process cannot be constant
 
-\subsubsection*{Reducible Markov Chains}
+\subsubsection{Reducible Markov chains}
 
 A Markov chain is said to be \emph{reducible} if it has more than one communication class. This implies that not every state in the state space is able to communicate with each other. To illustrate, consider the following reducible Markov chain.
 
@@ -570,14 +602,14 @@ A Markov chain is said to be \emph{reducible} if it has more than one communicat
 	the stationary probability distribution of a reducible Markov chain depends on its starting distribution $\vec{\pi}$ (More on this in 
 	the next section). 
 
-	\subsubsection*{Regular Markov Chains}
+	\subsubsection{Regular Markov chains}
 
 	We now look at Markov chains that do possess an equilibrium distribution, also known as \emph{regular} Markov chains. Contrary to the previous two types of Markov chains we have seen, a regular Markov chain must be \emph{aperiodic}, \emph{irreducible}, and also \emph{positive recurrent}. In other words, this means that the process must only have states that are visited aperiodically, one communication class for the entire state space, and a mean number of visits to every state that is infinite.
 	
 	 One easy way to check if a Markov chain obeys these conditions is by finding some power of the n-step transition matrix $\mathbf{P}^n$ for which the matrix contains only strictly positive entries. As such, for that number \emph{n}, every n-step transition probability $p_{ij}(n)$ has a strictly positive value, thereby demonstrating that the process is \emph{irreducible} since every state communicates with each other and belongs to a single communication class.  Moreover, this method also works to show that the Markov chain is aperiodic since every n-step self-transition probability is greater than 0 (i.e. $p_{ii}(n) > 0$).  This means that the process must again be able to perform this self-transition in the next step $p_{ii}(n+1) > 0$, thereby breaking the periodicity of the process. Finally, knowing that the process is irreducible, this implies that every state in the process must be recurrent such that the mean number of visits to every state is infinite. Hence, positive recurrence is a property that is always present in a finite irreducible Markov chain. 
 	 In brief, regular Markov chains are the only processes for which the steady-state distribution both exists and is nontrivial. We will examine how these equilibrium distributions can be determined in the next section.
 	
-	\subsection*{Steady-State Distribution}
+	\subsection{Steady-State Distribution}
 	
 	Recall from a previous section that the state probability distribution of $X_n$ given the starting distribution $X_0$ can be expressed as such
 	\begin{equation*}
@@ -647,7 +679,7 @@ A Markov chain is said to be \emph{reducible} if it has more than one communicat
 
 In the Python code, the theoretical equilibrium distribution is found by computing the left eigenvector of the transition matrix with corresponding eigenvalue 1, which is then compared to the experimental distribution that is found by computing successive powers of the transition matrix. As the process moves forward in steps, it can be observed that the theoretical and experimental distributions start to match as the initial condition of the process quickly becomes insignificant.
 
-\section*{Absorbing Markov Chain}
+\section*{Absorbing Markov chain}
 
 	We now begin our study of \emph{absorbing} Markov chains, which are almost polar opposites of \emph{regular} Markov chains. 
 	To contextualize, if a process is in state $s_i$ and is unable to leave it, then that state is considered to be an \emph{absorbing} 
@@ -943,7 +975,7 @@ ones.
 % Grinstead, Charles M, J L. Snell, and J L. Snell. \emph{Introduction to Probability}. Providence, RI: American Mathematical Society, 1997.
 
 
-% "Markov Chains: Introduction" MTHE/STAT455, STAT855 Lecture Notes, https://mast.queensu.ca/~stat455/lecturenotes/lecturenotes.shtml. 
+% "Markov chains: Introduction" MTHE/STAT455, STAT855 Lecture Notes, https://mast.queensu.ca/~stat455/lecturenotes/lecturenotes.shtml. 
 
 % Department of Statistics, The University of Auckland.  Developed by Rachel Cunliffe. "Lecture Notes for Stats 325." Department of Statistics, https://www.stat.auckland.ac.nz/~fewster/325/notes.php. 
 
