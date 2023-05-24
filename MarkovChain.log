@@ -835,4 +835,253 @@ Package pgfplots notification 'compat/show suggested version=true': you might be
 (c:/texlive/2021/texmf-dist/tex/latex/translations/translations-basic-dictionary-english.trsl
 File: translations-basic-dictionary-english.trsl (english translation file `translations-basic-dictionary')
 )
-Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 
+Package translations Info: loading dictionary `translations-basic-dictionary' for `english'. on input line 83.
+\c@lstlisting=\count363
+Package hyperref Info: Link coloring OFF on input line 83.
+ (c:/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
+ (c:/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+) (c:/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count364
+)
+LaTeX Info: Redefining \ref on input line 83.
+LaTeX Info: Redefining \pageref on input line 83.
+LaTeX Info: Redefining \nameref on input line 83.
+ (./MarkovChain.out) (./MarkovChain.out)
+\@outlinefile=\write4
+\openout4 = `MarkovChain.out'.
+
+LaTeX Font Info:    Trying to load font information for U+msa on input line 89.
+ (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 89.
+ (c:/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 106.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 106.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 107.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 107.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 121.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 121.
+
+[1
+
+{c:/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 199.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 199.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 203.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 203.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 211.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 211.
+
+[2]
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 224.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 224.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 229.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 229.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 239.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 239.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 242.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 242.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 247.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 247.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 255.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 255.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 256.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 256.
+
+[3] [4] [5] [6] [7]
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 518.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 518.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 550.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 550.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 562.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 562.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 569.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 569.
+
+[8]
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 577.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 577.
+
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 599.
+(c:/texlive/2021/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 599.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 609.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 609.
+
+[9] [10]
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 669.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 669.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 693.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 693.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 695.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 695.
+
+[11] [12]
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 836.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 836.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 836.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 836.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 837.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 837.
+
+[13]
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 858.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 858.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 862.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 862.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 882.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 882.
+
+[14]
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 912.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 912.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 919.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 919.
+
+
+LaTeX Font Warning: Command \boldmath invalid in math mode on input line 945.
+
+
+LaTeX Font Warning: Command \mathversion invalid in math mode on input line 945.
+
+[15] [16] (./MarkovChain.aux)
+Package rerunfilecheck Info: File `MarkovChain.out' has not changed.
+(rerunfilecheck)             Checksum: 9E7E44A61275A70E1C7621707325BF0F;1946.
+ ) 
+Here is how much of TeX's memory you used:
+ 43267 strings out of 478287
+ 1023620 string characters out of 5850749
+ 1410694 words of memory out of 5000000
+ 60753 multiletter control sequences out of 15000+600000
+ 484323 words of font info for 82 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 115i,15n,118p,1223b,1172s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}<c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb><c:/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on MarkovChain.pdf (16 pages, 200647 bytes).
+PDF statistics:
+ 235 PDF objects out of 1000 (max. 8388607)
+ 187 compressed objects within 2 object streams
+ 55 named destinations out of 1000 (max. 500000)
+ 101 words of extra memory for PDF output out of 10000 (max. 10000000)
+
