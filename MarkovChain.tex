@@ -97,20 +97,20 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 
 \section{Markov Chain}
 
-	A Markov chain describes a discrete-time stochastic process that consists of a finite (or infinite) set of states 
-	$S = \{s_1, s_2, ..., s_n \}$, which is also known as a \emph{state space}. Initially, the process begins at any 
+	A Markov chain describes a discrete-time stochastic process that consists of a finite (or infinite) set of states, 
+	which is also known as a \emph{state space}. Initially, the process begins at any 
 	one of these states and then successively "steps" from one state to another according to some probability known as 
-	a \emph{transition probability}. Formally, if the process is currently in state $s_i$, then we denote the probability 
-	that it transitions to state $s_j$ in one step as $p_{ij}$.
+	a \emph{transition probability}. If the process is currently at state $i$, then we denote the probability 
+	that it transitions to state $j$ in one step as $p_{ij}$.
 	\newline
-	Furthermore, consider a sequence of random variables $\mathbf{X} = \{X_n \in S | n \in T\}$ where \emph{T} is a time index 
-	set. Then $\mathbf{X}$ is said to be a Markov chain if, at any given time $n$, the conditional probability distribution for future states
-	of the process depends only on its present state and not its past states. In mathematical notation, this memoryless
+	Furthermore, consider a sequence of random variables $\mathbf{X} = \{X_n \in S | n \in T\}$ where $T$ is a discrete time index 
+	set. Then wey say $\mathbf{X}$ is a Markov chain if and only if, at any given time $n$, the conditional probability distribution for future states
+	of the process depends only on the present state and not past states. In mathematical notation, this memoryless
 	property can be expressed as
 
 	\begin{equation*}
 		\begin{aligned}
-			p_{ij} = P(X_{n+1} = s_j | X_{n} = s_i, X_{n-1}, ... , X_0) = P(X_{n+1} = s_j | X_{n}= s_i)
+			p_{ij} = P(X_{n+1} = j | X_{n} = i, X_{n-1}, ... , X_0) = P(X_{n+1} = j | X_{n}= i)
 		\end{aligned}
 	\end{equation*}
 
@@ -118,26 +118,27 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 	
 \subsection{Time Homogeneity}
 	
-	Another important assumption that must be made about the Markov process $\mathbf{X}$ is that the conditional probability 
-	distribution of $X_{n+1}$ given $X_n$ is independent of the time $n$.
+	An important assumption that we impose on Markov chains is that the conditional probability 
+	distribution of $X_{n+1}$ given $X_n$ is \emph{independent} of the time $n$. Hence, for any state $i,j \in S$, and time index $n \in T$,
+	the following time-invariant property holds.
 	\begin{equation*}
 		\begin{aligned}
-			\forall n\in T, p_{ij} = P(X_{n+1} = s_j | X_{n} = s_i)
+			p_{ij} = P(X_{n+1} = j | X_{n} = i)
 		\end{aligned}
 	\end{equation*}
-	In contrast, processes whose transition probabilities actually depend on the time index $n$ are called \emph{time-inhomogenous}.
+	In contrast, processes whose transition probabilities do depend on the time index $n$ are called \emph{time-inhomogenous}.
 	For our purposes, we will only focus on \emph{time-homogeneous} processes.
 	
 \subsection{Transition Probabilities}
 	
-	For a single-step transition, recall that the probability of moving from state $s_i$ to $s_j$ is denoted as $p_{ij}$. 
+	For a single-step transition, recall that the probability of moving from state $i$ to $j$ is denoted as $p_{ij}$. 
 	However, this notation quickly becomes strenuous if we wish to determine the evolution of the process after 2 or more
-	 steps. For that reason, we introduce a parameter $n$ such that $p_{ij}(n)$ denotes the n-step transition 
-	 probability, that is, the probability of moving from state $s_i$ to $s_j$ in exactly \emph{n} steps. 
+	steps. For that reason, we introduce a parameter $n$ where $p_{ij}(n)$ denotes the n-step transition 
+	probability, that is, the probability of moving from state $i$ to $j$ in exactly \emph{n} steps. 
 		
-	\[p_{ij}(n) = P(X_{n} = s_j | X_{0} = s_i)\]
+	\[p_{ij}(n) = P(X_{n} = j | X_{0} = i)\]
 	
-	To illustrate this, consider a Markov chain with state space $S = \{s_1, s_2, s_3\}$ and starting at $s_1$. If we want 
+	For example, consider a Markov chain with state space $S = \{s_1, s_2, s_3\}$ which starts at $s_1$. If we wish 
 	to determine the probability of moving to $s_3$ in exactly 2 steps, then, by the law of total probability, we must consider 
 	every possible route from $s_1$ to $s_3$.
 
@@ -196,7 +197,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 
 		
 	Notice that the above equation is closely related to a dot product between two probability vectors. To make better use
-	of this observation, let us introduce some useful notation. Let $m = |S|$, then we define the matrix $\mathbf{P} \in \R^{m \times m}$
+	of this observation, we introduce some notation. Let $m = |S|$, then we define the \emph{transition matrix} $\mathbf{P} \in \R^{m \times m}$
 	where the $(i,j)$ entry corresponds to the transition probability $p_{ij}$. In our example, the \emph{transition matrix} is written as
 	
 	\begin{equation*}
@@ -208,21 +209,25 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 		\end{pmatrix}
 	\end{equation*}
 
-	Notice in (1) we are dotting the first row of the matrix $\mathbf{P}$ with its third column to obtain the probability 
+	Notice in (1) we are dotting the first row with the third column of $\mathbf{P}$ to obtain the probability 
 	that the process starting at $s_1$ finishes at $s_3$ in 2 steps. We can further generalize this observation for any 2-step 
 	transition probability.
 
 	\begin{equation*}
 		\begin{aligned}
-			p_{ij}(2) &= P(X_2 = s_j|X_0 = s_i) \\ 
-					&= \sum_{k=1}^{m} P(X_2 = s_j|X_0 = s_i)
-					&= \sum_{k=1}^{m} p_{ik}p_{kj}\\
-					&= (P^2)_{ij}
+			p_{ij}(2) &= P(X_{2} = j | X_0 = i) \\
+					&= \sum_{k \in S} P(X_{2} = j \cap X_1 = k | X_0 = i) \\
+					&= \sum_{k \in S} \frac{P(X_{2} = j \cap X_1 = k \cap X_0 = i)}{P(X_0 = i)}\ \;\;\;\; \emph{Bayes' Theorem} \\
+					&= \sum_{k \in S} \frac{P(X_{2} = j | X_1 = k \cap X_0 = i)P(X_1 = k \cap X_0 = i)}{P(X_0 = i)}\ \\
+					&= \sum_{k \in S} P(X_{2} = j | X_1 = k \cap X_0 = i)P(X_1 = k | X_0 = i) \\
+					&= \sum_{k \in S} P(X_{2} = j | X_1 = k)P(X_1 = k | X_0 = i) \;\;\;\; \emph{Markov Property} \\ 
+					&= \sum_{k \in S} p_{kj}p_{ik} \\
+					&= (\mathbf{P}^2)_{ij} \\
 		\end{aligned}
 	\end{equation*}	    
 
 	It follows that the second power of the transition matrix $\mathbf{P}$ summarizes every 2-step transition probability 
-	from $s_i$ to $s_j$ (i.e. $p_{ij}(2)$).
+	from $i$ to $j$ (i.e. $p_{ij}(2)$).
 
 	\begin{equation*}
 		\begin{aligned}
@@ -236,7 +241,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 	\end{equation*}
 
 	\begin{theorem}
-		Let $s_i, s_j \in S$ be states of a Markov chain with transition matrix $\mathbf{P}$. Then
+		Let $i, j \in S$ be states of a Markov chain with transition matrix $\mathbf{P}$. Then
 		\begin{equation*}
 		\begin{aligned}
 			p_{ij}(n) = (\mathbf{P}^n)_{ij}
@@ -249,8 +254,8 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 
 		\begin{equation*}
 		\begin{aligned}
-			p_{ij}(n+1) &= P(X_{n+1} = s_j|X_0 = s_i) \\
-					&= \sum_{k=1}^{m} P(X_{n+1} = s_j|X_{n} = s_k)P(X_{n} = s_k | X_0 = s_i) \\
+			p_{ij}(n+1) &= P(X_{n+1} = j|X_0 = i) \\
+					&= \sum_{k=1}^{m} P(X_{n+1} = j|X_{n} = k)P(X_{n} = | X_0 = i) \\
 					&= \sum_{k=1}^{m} p_{kj}p_{ik}(n) \\
 					&= \sum_{k=1}^{m} p_{kj}(\mathbf{P}^{n})_{ik} \\
 					&= (\mathbf{P}^{n+1})_{ij} 
@@ -260,7 +265,7 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 	
 \subsection{State Probability Distribution}
 
-Suppose a Markov chain $\{X_n \in S|n \in T\}$ has a finite state space $S = \{s_1, s_2,..., s_k\}$. Then each random 
+Suppose a Markov chain $\{X_n \in S|n \in T\}$ has a finite state space $S = \{s_1, s_2,...,\}$. Then each random 
 variable $X_n$ has a state probability distribution that can be represented using a $k$-length row vector. For instance, 
 consider the probability vector $\vec{\pi}$ which contains the starting probability distribution of $X_0$.
 	
@@ -275,7 +280,7 @@ consider the probability vector $\vec{\pi}$ which contains the starting probabil
 		 P(X_0 = s_1) \\
 		 P(X_0 = s_2) \\ 
 		 \vdots \\
-		 P(X_0 = s_k)
+		 P(X_0 =)
 		 \end{pmatrix}
 	\end{aligned}
 	\end{equation*}		
@@ -284,8 +289,8 @@ Using the probability distribution of $X_0$, we can determine the probability di
 
 	\begin{equation*}
 	\begin{aligned}
-		P(X_1 = s_j) &= \sum_{i=1}^{|S|} P(X_1 = s_j \cap X_0 = s_i) \\
-				 	 &= \sum_{i=1}^{|S|} P(X_1 = s_j | X_0 = s_i)P(X_0 = s_i) \\
+		P(X_1 = j) &= \sum_{i=1}^{|S|} P(X_1 = j \cap X_0 = i) \\
+				 	 &= \sum_{i=1}^{|S|} P(X_1 = j | X_0 = i)P(X_0 = i) \\
 			     	 &= \sum_{i=1}^{|S|} p_{ij}\pi_i \\
 			     	 &= (\vec{\pi}P)_j
 	\end{aligned}
@@ -300,7 +305,7 @@ Using the probability distribution of $X_0$, we can determine the probability di
 		 P(X_1 = s_1) \\
 		 P(X_1 = s_2) \\ 
 		 \vdots \\
-		 P(X_1 = s_k)
+		 P(X_1 =)
 		 \end{pmatrix}
 	\end{aligned}
 	\end{equation*}
@@ -309,8 +314,8 @@ Likewise, we can use a similar approach to find the probability distribution of 
 
 	\begin{equation*}
 	\begin{aligned}
-		P(X_n = s_j) &= \sum_{i=1}^{|S|} P(X_n = s_j \cap X_0 = s_i) \\
-				 	 &= \sum_{i=1}^{|S|} P(X_n = s_j | X_0 = s_i)P(X_0 = s_i) \\
+		P(X_n = j) &= \sum_{i=1}^{|S|} P(X_n = j \cap X_0 = i) \\
+				 	 &= \sum_{i=1}^{|S|} P(X_n = j | X_0 = i)P(X_0 = i) \\
 			     	 &= \sum_{i=1}^{|S|} p_{ij}(n)\pi_i \\
 			     	 &= \sum_{i=1}^{|S|} (P^n)_{ij}\pi_i \\
 			     	 &= (\vec{\pi}P^n)_j
@@ -326,7 +331,7 @@ Likewise, we can use a similar approach to find the probability distribution of 
 		 P(X_n = s_1) \\
 		 P(X_n = s_2) \\ 
 		 \vdots \\
-		 P(X_n = s_k)
+		 P(X_n =)
 		 \end{pmatrix}
 	\end{aligned}
 	\end{equation*}
@@ -334,48 +339,48 @@ Likewise, we can use a similar approach to find the probability distribution of 
 \subsection{Accessibility and Communication}
 
 	\begin{definition}
-		A state $s_j$ is \emph{accessible} from another state $s_i$ if there exists some $n$ for which
+		A state $j$ is \emph{accessible} from another state $i$ if there exists some $n$ for which
 		\begin{equation*}
 			\begin{aligned}
 				p_{ij}(n) > 0
 			\end{aligned}
 			\end{equation*}
-		Moreover, if $s_i$ and $s_j$ are both \emph{accessible} to each other, then they are said to \emph{communicate}, denoted as $s_i \leftrightsquigarrow s_j$.
+		Moreover, if $i$ and $j$ are both \emph{accessible} to each other, then they are said to \emph{communicate}, denoted as $i \leftrightsquigarrow j$.
 	\end{definition}
 	
 	\begin{proposition}
 		Communication is considered to be an equivalence relationship.
 	\end{proposition}
-	To do so, we must verify that the relation is indeed \emph{reflexive}, \emph{symmetric}, and \emph{transitive}. 
-	We will prove \emph{transitivity} and leave the rest as exercises. 
+		To do so, we must verify that the relation is indeed \emph{reflexive}, \emph{symmetric}, and \emph{transitive}. 
+		We will prove \emph{transitivity} and leave the rest as exercises. 
 		\begin{proof}	
-		Let $s_i, s_j, s_k \in S$ where $s_i \leftrightsquigarrow s_j$ and $s_j \leftrightsquigarrow s_k$.
+		Let $i, j, \in S$ where $i \leftrightsquigarrow j$ and $j \leftrightsquigarrow$.
 		Then by definition, we know that there exist some integers $n$ and $m$ such that 
-		$p_{ik}(n) > 0$ and $p_{kj}(m) > 0$. For $s_j$ to be \emph{accessible} from $s_i$, we need to show that 
+		$p_{ik}(n) > 0$ and $p_{kj}(m) > 0$. For $j$ to be \emph{accessible} from $i$, we need to show that 
 		$p_{ij}(l) > 0$ for some integer $l$. Consider the case where $l = n+m$.
 
 	\begin{equation*}
 		\begin{aligned}
-			p_{ij}(n+m) &= P(X_{n+m} = s_j | X_0 = s_i) \\
-						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j \cap X_n = s_k | X_0 = s_i) \\
-						&= \sum_{k=1}^{|S|} \frac{P(X_{n+m} = s_j \cap X_n = s_k \cap X_0 = s_i)}{P(X_0 = s_i)}\ \;\;\;\; \emph{Bayes' Theorem} \\
-						&= \sum_{k=1}^{|S|} \frac{P(X_{n+m} = s_j | X_n = s_k \cap X_0 = s_i)P(X_n = s_k \cap X_0 = s_i)}{P(X_0 = s_i)}\ \\
-						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j | X_n = s_k \cap X_0 = s_i)P(X_n = s_k | X_0 = s_i) \\
-						&= \sum_{k=1}^{|S|} P(X_{n+m} = s_j | X_n = s_k)P(X_n = s_k | X_0 = s_i) \;\;\;\; \emph{Markov Property} \\ 
+			p_{ij}(n+m) &= P(X_{n+m} = j | X_0 = i) \\
+						&= \sum_{k=1}^{|S|} P(X_{n+m} = j \cap X_n = | X_0 = i) \\
+						&= \sum_{k=1}^{|S|} \frac{P(X_{n+m} = j \cap X_n = \cap X_0 = i)}{P(X_0 = i)}\ \;\;\;\; \emph{Bayes' Theorem} \\
+						&= \sum_{k=1}^{|S|} \frac{P(X_{n+m} = j | X_n = \cap X_0 = i)P(X_n = \cap X_0 = i)}{P(X_0 = i)}\ \\
+						&= \sum_{k=1}^{|S|} P(X_{n+m} = j | X_n = \cap X_0 = i)P(X_n = | X_0 = i) \\
+						&= \sum_{k=1}^{|S|} P(X_{n+m} = j | X_n =)P(X_n = | X_0 = i) \;\;\;\; \emph{Markov Property} \\ 
 						&= \sum_{k=1}^{|S|} p_{kj}(m)p_{ik}(n) \\
 		\end{aligned}
 	\end{equation*}	
 	
-	By assumption, there exists at least one intermediate state $s_k$ that communicates both with $s_i$ and $s_j$ (i.e. $p_{ik}(n) > 0$ 
-	and $p_{kj}(m) > 0$), then the following inequality holds true only for the \emph{communicating} intermediate state $s_k$.
+	By assumption, there exists at least one intermediate state $k$ that communicates both with $i$ and $j$ (i.e. $p_{ik}(n) > 0$ 
+	and $p_{kj}(m) > 0$), then the following inequality holds true only for the \emph{communicating} intermediate state $k$.
 
 	\begin{equation*}
 	\begin{aligned}
 		 p_{ij}(n+m) \geq p_{ik}(m)p_{kj}(n) > 0
 	\end{aligned}
 	\end{equation*}	
-	Hence $s_j$ is accessible from $s_i$. A similar argument can be made in the other direction to show that $s_i$ is accessible from $s_j$,
-	thereby proving $s_i \leftrightsquigarrow s_j$.
+	Hence $j$ is accessible from $i$. A similar argument can be made in the other direction to show that $i$ is accessible from $j$,
+	thereby proving $i \leftrightsquigarrow j$.
 	\end{proof}
 
 	As a side note, we say that the \emph{communication classes} of a Markov Process are the equivalence classes of states under communication.
@@ -385,18 +390,18 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	
 	For any Markov chain, we classify each state according to the following definitions.
 	\begin{definition}
-		A state $s_i \in S$ is called \emph{recurrent} if 
+		A state $i \in S$ is called \emph{recurrent} if 
 		\begin{equation*}
 			\begin{aligned}
-				P(X_n = s_i \, \text{for infinitely many} \, n) = 1
+				P(X_n = i \, \text{for infinitely many} \, n) = 1
 			\end{aligned}
 		\end{equation*}
 	\end{definition}
 	\begin{definition}
-		A state $s_i \in S$ is called \emph{transient} if 
+		A state $i \in S$ is called \emph{transient} if 
 		\begin{equation*}
 			\begin{aligned}
-				P(X_n = s_i \, \text{for infinitely many} \, n) = 0
+				P(X_n = i \, \text{for infinitely many} \, n) = 0
 			\end{aligned}
 		\end{equation*}
 	\end{definition}
@@ -405,88 +410,83 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	A \emph{transient} state however has the property that a Markov chain starting at that state returns to it finitely often, with probability 1.
 
 	\begin{theorem}
-		Let $s_i \in S$ be a state of a Markov chain. Denote by $f_{ii}$ the probability that a Markov chain starting at $s_i$ returns to 
-		$s_i$ at least once, that is
+		Let $i \in S$ be a state of a Markov chain. Denote by $f_{ii}$ the probability that a Markov chain starting at $i$ returns to 
+		$i$ at least once, that is
 		\begin{equation*}
 			\begin{aligned}
-				f_{ii} := P(X_n = s_i \, \text{for some} \, n \in \N | X_0 = s_i)
+				f_{ii} := P(X_n = i \, \text{for some} \, n \in \N | X_0 = i)
 			\end{aligned}
 		\end{equation*}
 		Then,
 		\begin{enumerate}
-			\item The state $s_i$ is \emph{recurrent} if and only if $f_{ii} = 1$
-			\item The state $s_i$ is \emph{transient} if and only if $f_{ii} < 1$
+			\item The state $i$ is \emph{recurrent} if and only if $f_{ii} = 1$
+			\item The state $i$ is \emph{transient} if and only if $f_{ii} < 1$
 		\end{enumerate}
 	\end{theorem}
 
+	% \begin{center}
+	% \begin{tikzpicture}[->, >=stealth', auto, semithick, node distance=3cm]
+    %     \tikzstyle{every state}=[fill=white,draw=black,thick,text=black,scale=1]
+    %     \node[draw, circle]    (A)               {$1$};
+    %     \node[draw, circle]    (B)[below of=A]   {$2$};
+    %     \node[draw, circle]    (C)[right of=B]   {$3$};
+    %     \node[draw, circle]    (D)[right of=C]   {$4$};
+    %     \node[draw, circle]    (E)[above of=D]   {$5$};
+    %     \path
+    %     (A) edge[bend left,above]	node{}	(C)
+    %     (B) edge[bend left,below]	node{}	(A)
+    %         edge[bend left,above]	node{}	(C)      
+    %     (C) edge[bend left,below]	node{}	(B)
+    %         edge[bend left,above]	node{}	(D)
+    %     (D) edge[bend left,above]   node{}  (E)   
+    %     (E) edge[bend left,below]   node{}  (D);
+    %     \end{tikzpicture}
+	% \end{center}
 	
-
-	\begin{center}
-	\begin{tikzpicture}[->, >=stealth', auto, semithick, node distance=3cm]
-        \tikzstyle{every state}=[fill=white,draw=black,thick,text=black,scale=1]
-        \node[draw, circle]    (A)               {$1$};
-        \node[draw, circle]    (B)[below of=A]   {$2$};
-        \node[draw, circle]    (C)[right of=B]   {$3$};
-        \node[draw, circle]    (D)[right of=C]   {$4$};
-        \node[draw, circle]    (E)[above of=D]   {$5$};
-        \path
-        (A) edge[bend left,above]	node{}	(C)
-        (B) edge[bend left,below]	node{}	(A)
-            edge[bend left,above]	node{}	(C)      
-        (C) edge[bend left,below]	node{}	(B)
-            edge[bend left,above]	node{}	(D)
-        (D) edge[bend left,above]   node{}  (E)   
-        (E) edge[bend left,below]   node{}  (D);
-        \end{tikzpicture}
-	\end{center}
-	
-	In this example, the states $s_1, s_2, s_3$ are \emph{transient} because if the process starts at any one of these states 
-	and moves from $s_3$ to $s_4$, then it will never return to any of the transient states located in the left node. 
-	However, the states $s_4$ and $s_5$ are \emph{recurrent} because the process starting at any one of those states must 
-	eventually return to that initial state. More formally, if we define $f_{ii}$ as the probability that a process starting 
-	at $s_i$ returns to $s_i$ at least once.
-	
-
-	\begin{equation*}
-		\begin{aligned}
-			f_{ii} := P(X_n = s_i \, \text{for some} \, n \in T | X_0 = s_i)
-		\end{aligned}
-	\end{equation*}
+	% In this example, the states $s_1, s_2, s_3$ are \emph{transient} because if the process starts at any one of these states 
+	% and moves from $s_3$ to $s_4$, then it will never return to any of the transient states located in the left node. 
+	% However, the states $s_4$ and $s_5$ are \emph{recurrent} because the process starting at any one of those states must 
+	% eventually return to that initial state. More formally, if we define $f_{ii}$ as the probability that a process starting 
+	% at $i$ returns to $i$ at least once.
 
 	\begin{theorem}
+		Let $i, j \in S$ be states of a Markov chain.
 		\begin{enumerate}
-			\item 
-		\end{enumerate}
-	\end{theorem}
-
-	\begin{theorem}
-		Let $s_i, s_j \in S$ be states of a Markov chain.
-		\begin{enumerate}
-			\item If $s_i$ is a \emph{recurrent} state and $s_i \leftrightsquigarrow s_j$, then $s_j$ is also \emph{recurrent}.
-			\item If $s_i$ is a \emph{transient} state and $s_i \leftrightsquigarrow s_j$, then $s_j$ is also \emph{transient}.
+			\item If $i$ is a \emph{recurrent} state and $i \leftrightsquigarrow j$, then $j$ is also \emph{recurrent}.
+			\item If $i$ is a \emph{transient} state and $i \leftrightsquigarrow j$, then $j$ is also \emph{transient}.
 		\end{enumerate}
 	\end{theorem}
 	\begin{proof}
-		\begin{enumerate}
-			\item Suppose $s_j$ is a \emph{recurrent} state.
-			\item If $s_i$ is a \emph{transient} state and $s_i \leftrightsquigarrow s_j$, then $s_j$ is also \emph{transient}.
-		\end{enumerate}
+		We leave (2) as an exercise and prove (1) by contradiction. Suppose $j$ is a \emph{recurrent} state. Since $i$ communicates with $j$, there must exist $r, s \in \N$ for which $p_{ji}(r) > 0$ and $p_{ij}(s) > 0$.
+		Moreover, for all $n \in \N$ it holds that
+		\begin{equation*}
+		\begin{aligned}
+			p_{jj}(r+n+s) \geq p_{ji}(r)p_{ii}(n)p_{ij}(s)
+		\end{aligned}
+		\end{equation*}		
+		Hence,
+		\begin{equation*}
+			\begin{aligned}
+				\sum_{n=1}^{\infty} p_{ii}(n) \leq \frac{1}{p_{ji}(r)p_{ij}(s)} \sum_{n=1}^{\infty} p_{jj}(r+n+s) \leq \frac{1}{p_{ji}(r)p_{ij}(s)} \sum_{n=1}^{\infty} p_{jj}(n) < \infty
+			\end{aligned}
+			\end{equation*}
+		where the last inequality holds since $j$ is transient. Therefore, $i$ is also transient which is a contradiction.
 	\end{proof}
 
 
-	then $s_i$ is said to be \emph{recurrent} if $f_{ii} = 1$, and \emph{transient} if $f_{ii} < 1$. This means that if a process starts at a \emph{recurrent} state, then there must exist some \emph{n} steps for which the process returns to that state again. When that happens, the memoryless and time-homogeneous properties ensure that the process will continue to return repeatedly to that recurrent state in the future since $f_{ii} = 1$ every time the process reaches that state.  Therefore, the recurrent state will be visited infinitely many times. On the other hand, if the process starts at a \emph{transient} state, then it will continue to return to that state with probability $f_{ii}$ every time it reaches it, until it is no longer able to return anymore with probability $1 - f_{ii}$. Subsequently, we observe that the number of times \emph{N} that the transient state is visited follows a geometric distribution with "success" probability $1 - f_{ii}$, which is the probability that the process can no longer revisit the transient state $s_i$. If we  count $X_0 = s_i$ as the first visit to $s_i$, and define $N_i$ as the number of visits to $s_i$
+	then $i$ is said to be \emph{recurrent} if $f_{ii} = 1$, and \emph{transient} if $f_{ii} < 1$. This means that if a process starts at a \emph{recurrent} state, then there must exist some \emph{n} steps for which the process returns to that state again. When that happens, the memoryless and time-homogeneous properties ensure that the process will continue to return repeatedly to that recurrent state in the future since $f_{ii} = 1$ every time the process reaches that state.  Therefore, the recurrent state will be visited infinitely many times. On the other hand, if the process starts at a \emph{transient} state, then it will continue to return to that state with probability $f_{ii}$ every time it reaches it, until it is no longer able to return anymore with probability $1 - f_{ii}$. Subsequently, we observe that the number of times \emph{N} that the transient state is visited follows a geometric distribution with "success" probability $1 - f_{ii}$, which is the probability that the process can no longer revisit the transient state $i$. If we  count $X_0 = i$ as the first visit to $i$, and define $N_i$ as the number of visits to $i$
 	
 	\begin{equation*}
 	\begin{aligned}
-		 P(N_i = k | X_0 = s_i) = f_{ii}^{k-1}(1-f_{ii}), \; k\geq1
+		 P(N_i = k | X_0 = i) = f_{ii}^{k-1}(1-f_{ii}), \; k\geq1
 	\end{aligned}
 	\end{equation*}		
 	
-	The expected number of visits to the transient state $s_i$ given that the process starts at $s_i$ can be determined
+	The expected number of visits to the transient state $i$ given that the process starts at $i$ can be determined
 	
 	\begin{equation*}
 		\begin{aligned}
-			E[N_i|X_0 = s_i] &= \sum_{k=1}^\infty kf_{ii}^{k-1}(1-f_{ii}) \\
+			E[N_i|X_0 = i] &= \sum_{k=1}^\infty kf_{ii}^{k-1}(1-f_{ii}) \\
 							&= (1-f_{ii})\sum_{k=1}^\infty kf_{ii}^{k-1} \\
 							&= (1-f_{ii}) (\frac{d}{df_{ii}} \sum_{k=1}^\infty f_{ii}^{k}) \\
 							&= (1-f_{ii}) (\frac{d}{df_{ii}} \frac{f_{ii}}{1-f_{ii}}) \\
@@ -495,7 +495,7 @@ Likewise, we can use a similar approach to find the probability distribution of 
 		\end{aligned}
 	\end{equation*}	
 	
-	Although this equation is valid, the value of $f_{ii}$ is fairly difficult to calculate though possible. Alternatively, let $I_n$ be the indicator random variable for the event $X_n=s_i$. In other words, the indicator returns 1 if the event satisfied and 0 if it is not, thereby acting as a "counter" for the number of times the process returns to $s_i$.
+	Although this equation is valid, the value of $f_{ii}$ is fairly difficult to calculate though possible. Alternatively, let $I_n$ be the indicator random variable for the event $X_n=i$. In other words, the indicator returns 1 if the event satisfied and 0 if it is not, thereby acting as a "counter" for the number of times the process returns to $i$.
 	
 	\begin{equation*}
 	\begin{aligned}
@@ -503,13 +503,13 @@ Likewise, we can use a similar approach to find the probability distribution of 
 	\end{aligned}
 	\end{equation*}	
 	
-	 Then the expected number of visits to the transient state $s_i$ given that the process starts at $s_i$ can be expressed as such
+	 Then the expected number of visits to the transient state $i$ given that the process starts at $i$ can be expressed as such
 	
 	\begin{equation*}
 	\begin{aligned}
-		 E[N_i|X_0 = s_i] &= E\left[\sum_{n=0}^\infty I_n | X_0 = s_i\right] \\
-		 				  &= \sum_{n=0}^\infty E\left[I_n | X_0 = s_i\right] &\text{By linearity of expectation}\\
-		 				  &= \sum_{n=0}^\infty P(X_n = s_i | X_0 = s_i) \\
+		 E[N_i|X_0 = i] &= E\left[\sum_{n=0}^\infty I_n | X_0 = i\right] \\
+		 				  &= \sum_{n=0}^\infty E\left[I_n | X_0 = i\right] &\text{By linearity of expectation}\\
+		 				  &= \sum_{n=0}^\infty P(X_n = i | X_0 = i) \\
 		 				  &= \sum_{n=0}^\infty p_{ii}(n) \\
 		 				  &= \sum_{n=0}^\infty (P^n)_{ii}
 	\end{aligned}
@@ -619,7 +619,7 @@ A Markov chain is said to be \emph{reducible} if it has more than one communicat
 		 P(X_n = s_1) \\
 		 P(X_n = s_2) \\ 
 		 \vdots \\
-		 P(X_n = s_k)
+		 P(X_n =)
 		 \end{pmatrix}
 	\end{aligned}
 	\end{equation*}
@@ -679,10 +679,10 @@ A Markov chain is said to be \emph{reducible} if it has more than one communicat
 
 In the Python code, the theoretical equilibrium distribution is found by computing the left eigenvector of the transition matrix with corresponding eigenvalue 1, which is then compared to the experimental distribution that is found by computing successive powers of the transition matrix. As the process moves forward in steps, it can be observed that the theoretical and experimental distributions start to match as the initial condition of the process quickly becomes insignificant.
 
-\section*{Absorbing Markov chain}
+\section{Absorbing Markov chain}
 
 	We now begin our study of \emph{absorbing} Markov chains, which are almost polar opposites of \emph{regular} Markov chains. 
-	To contextualize, if a process is in state $s_i$ and is unable to leave it, then that state is considered to be an \emph{absorbing} 
+	To contextualize, if a process is in state $i$ and is unable to leave it, then that state is considered to be an \emph{absorbing} 
 	state. Additionally, if it is possible to go from any \emph{non-absorbing} state to an absorbing state in one or more steps, then 
 	the entire process is considered to be an \emph{absorbing} Markov chain. Notice that \emph{absorbing} states are also 
 	\emph{recurrent}, whereas non-absorbing states are \emph{transient} since the process can be absorbed starting from any 
@@ -752,7 +752,7 @@ Now, consider the n-step transition matrix as $n$ approaches infinity
 	\end{equation*}	
 First, let us examine the top-left expression (i.e. $lim_{n\to\infty}Q^n$). Since it is possible to go from any non-absorbing state to an absorbing one, this means that the sum of every row in \emph{Q} must be smaller than 1. As a result, the largest eigenvalue of \emph{Q} must also be smaller than 1, and therefore $Q^n \rightarrow 0$ as $n \rightarrow \infty$. In other words, the probability that an absorbing Markov chain will be absorbed is 1.
 
-%Suppose a process starts at a non-absorbing state $s_j$. We note the probability that the process does not move from $s_j$ to an absorbing state as the sum of the row of \emph{Q} that corresponds to the transient state $s_j$; we denote this probability as $p_j$. Since we know that it is possible to go from any non-absorbing state to an absorbing one (not necessarily in one step), then $p_j$ \leq 1.
+%Suppose a process starts at a non-absorbing state $j$. We note the probability that the process does not move from $j$ to an absorbing state as the sum of the row of \emph{Q} that corresponds to the transient state $j$; we denote this probability as $p_j$. Since we know that it is possible to go from any non-absorbing state to an absorbing one (not necessarily in one step), then $p_j$ \leq 1.
 
 As for the top-right expression (i.e. $\lim_{n\to\infty} \sum_{k=1}^{\infty}Q^{k-1}R$), it contains the absorbing probabilities of the Markov chain, which will be further discussed in the next section.
 
@@ -767,16 +767,16 @@ As for the top-right expression (i.e. $\lim_{n\to\infty} \sum_{k=1}^{\infty}Q^{k
 	\end{aligned}
 	\end{equation*}	
 	
-	More specifically, the (i,j) entry of the fundamental matrix $N$ gives the expected number of visits to the transient state $s_j$ 
-	given that the process starts at the transient state $s_i$. This can be shown by starting from the definition of expectation and 
-	by defining the indicator random variable $I_n$ for the event $\{X_n = s_j\}$. Recall that a very similar derivation was already 
+	More specifically, the (i,j) entry of the fundamental matrix $N$ gives the expected number of visits to the transient state $j$ 
+	given that the process starts at the transient state $i$. This can be shown by starting from the definition of expectation and 
+	by defining the indicator random variable $I_n$ for the event $\{X_n = j\}$. Recall that a very similar derivation was already 
 	shown on page 7.
 
 	\begin{equation*}
 	\begin{aligned}
-		 E[N_j|X_0 = s_i] &= E\left[\sum_{n=0}^\infty I_n | X_0 = s_i\right] \\
-		 				  &= \sum_{n=0}^\infty E\left[I_n | X_0 = s_i\right] \\
-		 				  &= \sum_{n=0}^\infty P(X_n = s_j | X_0 = s_i) \\
+		 E[N_j|X_0 = i] &= E\left[\sum_{n=0}^\infty I_n | X_0 = i\right] \\
+		 				  &= \sum_{n=0}^\infty E\left[I_n | X_0 = i\right] \\
+		 				  &= \sum_{n=0}^\infty P(X_n = j | X_0 = i) \\
 		 				  &= \sum_{n=0}^\infty q_{ij}(n) \\
 		 				  &= \sum_{n=0}^\infty (Q^n)_{ij} \\
 		 				  &= N_{ij}
@@ -798,8 +798,8 @@ As for the top-right expression (i.e. $\lim_{n\to\infty} \sum_{k=1}^{\infty}Q^{k
 	\end{equation*}
 
 	If we let B = NR, then the (i,j) entry of matrix B gives the probability that the the process will be absorbed at the absorbing 
-	state $s_j$ given that it started at the transient state $s_i$. To show that the is true, by the law of total probability, we must 
-	consider every possible route from $s_i$ to $s_j$ through intermediate transient states $s_k$, and also for all possible number of steps.
+	state $j$ given that it started at the transient state $i$. To show that the is true, by the law of total probability, we must 
+	consider every possible route from $i$ to $j$ through intermediate transient states $k$, and also for all possible number of steps.
 
 	\begin{equation*}
 		\begin{aligned}
@@ -811,8 +811,8 @@ As for the top-right expression (i.e. $\lim_{n\to\infty} \sum_{k=1}^{\infty}Q^{k
 	\end{equation*}
 
 	Finally, we can even use the fundamental matrix $N$ to determine the expected time to absorption given that the process starts at a 
-	transient state $s_i$. To show this, let $t$ be a column vector such that its entries $t_i$ represent the expected time to 
-	absorption given that the process starts at $s_i$. Then
+	transient state $i$. To show this, let $t$ be a column vector such that its entries $t_i$ represent the expected time to 
+	absorption given that the process starts at $i$. Then
 
 	\begin{equation*}
 	\begin{aligned}
@@ -828,7 +828,7 @@ As for the top-right expression (i.e. $\lim_{n\to\infty} \sum_{k=1}^{\infty}Q^{k
 		\end{aligned}
 	\end{equation*}
 	
-	Therefore, we are adding the expected visits to all non-absorbing states given that the process starts at $s_i$, which 
+	Therefore, we are adding the expected visits to all non-absorbing states given that the process starts at $i$, which 
 	is also indicative of the total expected number of steps until the process is absorbed.
 
 	\begin{tcolorbox}
@@ -938,7 +938,7 @@ The fundamental matrix is given as
 	\end{equation}
 
 We now find the \emph{t} column vector whose entries $t_i$ contain the expected time to absorption given that the process starts 
-at $s_i$
+at $i$
 
 	\begin{equation}
 		\begin{aligned}
@@ -968,6 +968,9 @@ As an exercise, we will construct a 95\% confidence interval for the average num
 With repeated sampling, we are 95\% confident that the true mean number of games that the gambler must play until they lose or win lies 
 between 3.5015 and 4.4589. Since 4 $\in$ C.I., we have sufficient evidence to believe that the experimental results match the theoretical 
 ones.
+
+\section{Hidden Markov Model}
+
 
 \clearpage
 
