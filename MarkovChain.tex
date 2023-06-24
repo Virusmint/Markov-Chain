@@ -255,9 +255,9 @@ in many important fields such as Natural Language Processing (NLP), PageRank, sp
 		\begin{equation*}
 		\begin{aligned}
 			p_{ij}(n+1) &= P(X_{n+1} = j|X_0 = i) \\
-					&= \sum_{k=1}^{m} P(X_{n+1} = j|X_{n} = k)P(X_{n} = | X_0 = i) \\
-					&= \sum_{k=1}^{m} p_{kj}p_{ik}(n) \\
-					&= \sum_{k=1}^{m} p_{kj}(\mathbf{P}^{n})_{ik} \\
+					&= \sum_{k \in S} P(X_{n+1} = j|X_{n} = k)P(X_{n} = | X_0 = i) \\
+					&= \sum_{k \in S} p_{kj}p_{ik}(n) \\
+					&= \sum_{k \in S} p_{kj}(\mathbf{P}^{n})_{ik} \\
 					&= (\mathbf{P}^{n+1})_{ij} 
 		\end{aligned}
 		\end{equation*}	
