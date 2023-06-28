@@ -289,10 +289,10 @@ Using the probability distribution of $X_0$, we can determine the probability di
 
 	\begin{equation*}
 	\begin{aligned}
-		P(X_1 = j) &= \sum_{i=1}^{|S|} P(X_1 = j \cap X_0 = i) \\
-				 	 &= \sum_{i=1}^{|S|} P(X_1 = j | X_0 = i)P(X_0 = i) \\
-			     	 &= \sum_{i=1}^{|S|} p_{ij}\pi_i \\
-			     	 &= (\vec{\pi}P)_j
+		P(X_1 = j) &= \sum_{i \in S} P(X_1 = j \cap X_0 = i) \\
+					&= \sum_{i \in S} P(X_1 = j | X_0 = i)P(X_0 = i) \\
+					&= \sum_{i \in S} p_{ij}\pi_i \\
+					&= (\vec{\pi}P)_j
 	\end{aligned}
 	\end{equation*}	
 			     	 
@@ -314,10 +314,10 @@ Likewise, we can use a similar approach to find the probability distribution of 
 
 	\begin{equation*}
 	\begin{aligned}
-		P(X_n = j) &= \sum_{i=1}^{|S|} P(X_n = j \cap X_0 = i) \\
-				 	 &= \sum_{i=1}^{|S|} P(X_n = j | X_0 = i)P(X_0 = i) \\
-			     	 &= \sum_{i=1}^{|S|} p_{ij}(n)\pi_i \\
-			     	 &= \sum_{i=1}^{|S|} (P^n)_{ij}\pi_i \\
+		P(X_n = j) &= \sum_{i \in S} P(X_n = j \cap X_0 = i) \\
+				 	 &= \sum_{i \in S} P(X_n = j | X_0 = i)P(X_0 = i) \\
+			     	 &= \sum_{i \in S} p_{ij}(n)\pi_i \\
+			     	 &= \sum_{i \in S} (P^n)_{ij}\pi_i \\
 			     	 &= (\vec{\pi}P^n)_j
 	\end{aligned}
 	\end{equation*}	
